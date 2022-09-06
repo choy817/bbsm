@@ -43,7 +43,7 @@ public class userMapperTest {
 		userMapper.register(user);
 	}
 	
-	@Test
+	//@Test
 	public void loginTest() throws Exception{
 		UserDTO user=new UserDTO();
 		user.setUserId("apple");
@@ -51,4 +51,6 @@ public class userMapperTest {
 		
 		log.info(userMapper.selectUser(user));
 	}
+	
+	
 }

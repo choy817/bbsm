@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,7 @@ public class UserController {
 	public void register() {log.info("Controller ==============> register(Get).............");}
 	
 	@PostMapping("/register")
-	public String register(UserDTO user) {
+	public String register(UserDTO user,RedirectAttributes rttr) {
 		log.info("Controller ==============> register(Post).........");
 		int cnt=userService.checkId(user.getUserId());
 		
@@ -48,10 +49,14 @@ public class UserController {
 			String en_pw=pwdEncoder.encode(user.getUserPw());
 			user.setUserPw(en_pw);
 			user.setUserPwCheck(en_pw);
-			userService.register(user);
-			return "/user/login";
+			
+			if(userService.register(user)) {
+				rttr.addFlashAttribute("msg","regSuccess");
+				return "redirect:/user/login";
+			}
 		}
-		return "/user/register";
+		rttr.addFlashAttribute("msg","regFail");
+		return "redirect:/user/register";
 	}
 	//로그인
 	@GetMapping("/login")
@@ -75,8 +80,8 @@ public class UserController {
 			log.info("정보 불일치 ");
 			session.setAttribute("user", null);
 		}
-		
-		return "/user/login";
+		rttr.addFlashAttribute("msg","logFail");
+		return "redirect:/user/login";
 		
 	}
 	
@@ -94,6 +99,55 @@ public class UserController {
 		map.put("check",result);
 		log.info("map : " +map.put("check",result));
 		return map;
+		
+	}
+	
+	//회원정보 수정
+	@GetMapping("/modifyUser")
+	public void userModify() {
+		log.info("Controller ==============> userModify(Get)..........");}
+	
+	@PostMapping("/modifyUser")
+	public String userModify(UserDTO user,HttpSession session,RedirectAttributes rttr) {
+		log.info("Controller ==============> userModify(Post)..........");
+		if(userService.modifyUser(user)) {
+			//설정된 세션을 모두 제거
+			session.invalidate();
+			rttr.addFlashAttribute("msg","modSuccess");
+			return "redirect:/user/login";
+		}
+		rttr.addFlashAttribute("msg","modFail");
+		return "redirect:/user/modifyUser";
+	}
+	
+	//회원정보 삭제
+	@GetMapping("/deleteUser")
+	public void deleteUser() {
+		log.info("Controller ==============> userDelete(Get)..........");}
+	
+	@PostMapping("/deleteUser")
+	public String deleteUser(UserDTO user,HttpSession session,RedirectAttributes rttr) {
+		log.info("Controller ==============> userDelete(Post)..........");
+		//세션 값 가져오기
+		UserDTO info=(UserDTO) session.getAttribute("user");
+		//세션에 저장되어있는 패스워드
+		String sessionPw=info.getUserPw();
+		//회원 탈퇴 시 새로 입력한 패스워드
+		String deletePw=user.getUserPw();
+		//패스워드 비교
+		boolean result=pwdEncoder.matches(deletePw, sessionPw);
+		//일치
+		if(result) {
+			userService.deleteUser(user);
+			SecurityContextHolder.clearContext();
+			rttr.addFlashAttribute("msg","delSuccess");
+			return "redirect:/index";
+		//불일치	
+		}else {
+			rttr.addFlashAttribute("msg","delFail");
+			return "redirect:/user/userDelete";
+		}
+		
 		
 	}
 }

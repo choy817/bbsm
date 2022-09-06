@@ -1,6 +1,7 @@
 package com.bbsm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.bbsm.domain.UserDTO;
@@ -17,6 +18,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Setter(onMethod_ =@Autowired)
 	UserMapper userMapper;
+	@Setter(onMethod_ =@Autowired)
+	BCryptPasswordEncoder pwdEncoder;
 
 	@Override
 	public int checkId(String userId) {
@@ -40,6 +43,22 @@ public class UserServiceImpl implements UserService {
 	public UserDTO selectUser(UserDTO user) {
 		log.info("Service ==============> userSelect............");
 		return userMapper.selectUser(user);
+	}
+
+	@Override
+	public boolean modifyUser(UserDTO user) {
+		log.info("Service ==============> modifyUser............");
+		String enPw=pwdEncoder.encode(user.getUserPw());
+		user.setUserPw(enPw);
+		
+		return userMapper.modifyUser(user);
+		
+	}
+
+	@Override
+	public boolean deleteUser(UserDTO user) {
+		log.info("Service ==============> deleteUser............");
+		return userMapper.deleteUser(user)==true;
 	}
 
 	

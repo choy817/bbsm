@@ -755,6 +755,12 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script>
+		const msg="${msg}"
+			if(msg=="delSuccess"){
+				alert("회원 탈퇴가 완료되었습니다.")
+			}
+	</script>
 
 </body>
 

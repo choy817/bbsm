@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>bbsm : 회원가입 </title>
+    <title>bbsm : 회원수정 </title>
 
     <!-- Custom fonts for this template-->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,44 +38,44 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">회원가입 </h1>
+                                <h1 class="h4 text-gray-900 mb-4">회원수정 </h1>
                             </div>
-                            <form class="user register" name="user register"id="register" method="post">
+                            <form class="user modifyUser" name="user modifyUser" id="modifyUser" method="post">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user userId" onkeyup="checkId()" id="userId" name="userId" 
-                                            placeholder="아이디 ">
+                                        <input type="text" class="form-control form-control-user userId" id="userId" name="userId" 
+                                            placeholder="아이디 " value="${user.userId}" readonly>
                                          <span id="checkId"></span>   
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" id="userName" name="userName"
-                                            placeholder="이름 ">
+                                            placeholder="이름 " value="${user.userName }">
                                         <span id="checkName"></span>       
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="userMail" name="userMail"
-                                        placeholder="이메일 "> 
+                                        placeholder="이메일 " value="${user.userMail }"> 
                                     <span id="checkMail"></span>       
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" id="userPhone" name="userPhone"
-                                        placeholder="휴대폰번호 : -없이 번호만 입력해 주세요 ">  
+                                        placeholder="휴대폰번호 : -없이 번호만 입력해 주세요 " value="${user.userPhone }">  
                                     <span id="checkPhone"></span>       
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user" 
-                                            id="userPw" name="userPw" placeholder="비밀번호 ">
+                                            id="userPw" name="userPw" placeholder="비밀번호 " value="${user.userPw }">
                                     <span id="checkPw"></span>           
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            id="userPwCheck" name="userPwCheck" placeholder="비밀번호 확인 ">
+                                            id="userPwCheck" name="userPwCheck" placeholder="비밀번호 확인 " value="${user.userPwCheck }">
                                         <span id="checkPwCheck"></span>       
                                     </div>
                                 </div>
-                                <input type="button" onclick="javascript:sendIt();" class="btn btn-primary btn-user btn-block" value="회원가입 ">
+                                <input type="button" onclick="javascript:sendIt();" class="btn btn-primary btn-user btn-block" value="회원수정 ">
                                 <hr>
                                 <a href="index.html" class="btn btn-google btn-user btn-block">
                                     <i class="fab fa-google fa-fw"></i> Register with Google
@@ -108,14 +108,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
-	<script src="/js/user/register.js"></script>
+	<script src="/js/user/modifyUser.js"></script>
 	<script> var contextPath = "${pageContext.request.contextPath}";</script>
-	<script>
-		const msg="${msg}"
-			if(msg=="regFail"){
-				alert("회원가입을 실패하였습니다.")
-			}
-	</script>
 </body>
 
 </html>

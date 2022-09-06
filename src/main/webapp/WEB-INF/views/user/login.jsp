@@ -101,6 +101,16 @@
     <script src="/js/sb-admin-2.min.js"></script>
     
     <script src="/js/user/login.js"></script>
+    <script>
+		const msg="${msg}"
+			if(msg=="regSuccess"){
+				alert("회원가입이 완료되었습니다.")
+			}else if(msg=="modSuccess"){
+				alert("회원수정이 완료되었습니다.")
+			}else if(msg=="logFail"){
+				alert("아이디, 비밀번호를 확인해 주세요.")
+			}
+	</script>
 
 </body>
 

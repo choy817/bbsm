@@ -54,7 +54,6 @@ function sendIt(){
 	
 }
 
-
 function checkId(){
 	var userId=$('input[name=userId]').val();
 	console.log("가져온 아이디 : "+userId);
@@ -81,6 +80,8 @@ function checkId(){
 			}
 		}
 	});
+
+
 	
 	
 	// $.ajax({
@@ -106,3 +107,4 @@ function checkId(){
 	// });
 
 }
+

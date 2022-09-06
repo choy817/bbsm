@@ -23,5 +23,16 @@
 		#{userPw},#{userPwCheck})
 	</insert>
 	
+	<!-- 회원수정  -->
+	<update id="modifyUser">	
+		UPDATE bbsm_user
+		SET userName=#{userName}, userMail=#{userMail}, userPhone=#{userPhone},
+		userPw=#{userPw}, userPwCheck=#{userPwCheck}
+		WHERE userId=#{userId}
+	</update>
 	
+	<!-- 회원탈퇴  -->
+	<delete id="deleteUser">
+		DELETE FROM bbsm_user WHERE userId=#{userId}
+	</delete>
 </mapper>

@@ -9,4 +9,8 @@ public interface UserMapper {
 	public boolean register(UserDTO user);
 	//로그인
 	public UserDTO selectUser(UserDTO user);
+	//정보수정
+	public boolean modifyUser(UserDTO user);
+	//회원탈퇴
+	public boolean deleteUser(UserDTO user);
 }
