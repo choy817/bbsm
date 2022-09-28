@@ -15,3 +15,12 @@ function sendIt(){
 
     form.submit();
 }
+
+function naverLogin(){
+    $.ajax({
+        url: '/user/naverLogin',
+        type: 'post',
+    }).done(function (res) {
+        location.href = res;
+    });
+}

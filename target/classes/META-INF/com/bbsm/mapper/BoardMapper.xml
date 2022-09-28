@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 인터페이스가 있는 경로를 적어서 Mapper 인터페이스와 연결한다. -->
+<mapper namespace="com.bbsm.mapper.BoardMapper">
+	<!-- 리스트 가져오기  -->
+	<select id="getList" resultType="com.bbsm.domain.BoardDTO">
+		SELECT * FROM bbsm_board WHERE boardNo>0
+	</select>
+	<!-- 페이징처리된 목록 가져오기  -->
+	<select id="getListWithPaging" resultType="com.bbsm.domain.BoardDTO">
+		<![CDATA[
+		SELECT * 
+		FROM (
+			SELECT /*+ INDEX_DESC(tbl_bbsm boardNo)*/ rownum rn, boardNo, boardTitle, boardContent, boardWriter, boardView, boardDate, boardReco
+		 	FROM bbsm_board 
+		 	WHERE rownum <= #{pageNum} * #{amount}
+		 	)
+		WHERE rn>(#{pageNum}-1) * #{amount} 
+	]]>
+	</select>
+	<!--전체 데이터 개수. -->
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(*) FROM bbsm_board WHERE boardNo > 0
+	</select>
+	<!-- 게시글 상세보기. -->
+	<select id="read" resultType="com.bbsm.domain.BoardDTO">
+		SELECT * FROM bbsm_board WHERE boardNo=#{boardNo}
+	</select>
+	
+</mapper>

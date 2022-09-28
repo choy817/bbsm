@@ -64,8 +64,8 @@
                                         </div>
                                         <input type="button" onclick="javascript:sendIt();" class="btn btn-primary btn-user btn-block" value="로그인 ">
                                         <hr>
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Login with Google
+                                        <a href="#" onclick="javascript:naverLogin();" class="btn btn-google btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Login with Naver
                                         </a>
                                         <a href="index.html" class="btn btn-facebook btn-user btn-block">
                                             <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
@@ -101,6 +101,8 @@
     <script src="/js/sb-admin-2.min.js"></script>
     
     <script src="/js/user/login.js"></script>
+    
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
     <script>
 		const msg="${msg}"
 			if(msg=="regSuccess"){

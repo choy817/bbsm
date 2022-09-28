@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -759,6 +760,8 @@
 		const msg="${msg}"
 			if(msg=="delSuccess"){
 				alert("회원 탈퇴가 완료되었습니다.")
+			}if(msg=="NLoginSuccess"){
+				console.log("네이버 로그인 성공.")
 			}
 	</script>
 

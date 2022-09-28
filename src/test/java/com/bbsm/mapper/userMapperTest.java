@@ -21,7 +21,7 @@ public class userMapperTest {
 	@Setter(onMethod_ =@Autowired )
 	UserMapper userMapper;
 
-	//@Test
+	@Test
 	public void checkIdTest() throws Exception{
 		String userId="apple";
 //		log.info(userMapper.checkId(userId));	

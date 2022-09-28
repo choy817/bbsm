@@ -382,20 +382,20 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <tr>
-                                            <th colspan="8">제목 들어갈부분 </th>
+                                            <th colspan="8">${board.boardTitle } </th>
                                         </tr>   
                                         <tr>
                                             <td style="border-right:none">작성자 </td>
-                                            <td style="border-right:none">김아무개  </td>
+                                            <td style="border-right:none">${board.boardWriter }  </td>
                                             <td style="border-right:none">조회수 </td>
-                                            <td style="border-right:none">0</td>
+                                            <td style="border-right:none">${board.boardView }</td>
                                             <td style="border-right:none">작성일 </td>
-                                            <td style="border-right:none">2022-00-00</td>
+                                            <td style="border-right:none">${board.boardDate }</td>
                                             <td style="border-right:none">추천수 </td>
-                                            <td>1</td>
+                                            <td>${board.boardReco }</td>
                                         </tr>
                                         <tr>
-                                            <td colspan="8" style="padding-bottom:300px">내용 들어갈 부분 </td>
+                                            <td colspan="8" style="padding-bottom:300px">${board.boardContent } </td>
                                         </tr>
                                  </table>
                     <!-- Comments section-->
