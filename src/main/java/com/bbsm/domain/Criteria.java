@@ -1,5 +1,7 @@
 package com.bbsm.domain;
 
+import org.springframework.web.util.UriComponentsBuilder;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,5 +18,14 @@ public class Criteria {
 	public Criteria(int pageNum, int amount) {
 		this.pageNum=pageNum;
 		this.amount=amount;
+	}
+	
+	// 여러개의 파라미터들을 연결해서 URL의 형태로 만들어주는 기능 
+	public String getListLink() {
+		UriComponentsBuilder builder=UriComponentsBuilder.fromPath("")
+				.queryParam("pageNum", this.pageNum)
+				.queryParam("amount", this.amount);
+		
+		return builder.toUriString();
 	}
 }

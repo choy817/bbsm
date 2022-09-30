@@ -40,10 +40,19 @@ public class BoardMapperTest {
 		list.forEach(board -> log.info(board.getBoardNo()));
 	
 	}
-	@Test
+//	@Test
 	public void readTest() {
 		long boardNo=1L;
 		boardMapper.read(boardNo);
+	}
+	
+	@Test
+	public void modifyTest() {
+		BoardDTO board=new BoardDTO();
+		board.setBoardNo(1L);
+		board.setBoardTitle("수정 테스트!!!!");
+		board.setBoardContent("수정되어라 ");
+		log.info(boardMapper.modifyBoard(board));
 	}
 
 }

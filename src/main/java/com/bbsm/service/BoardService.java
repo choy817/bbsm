@@ -14,4 +14,6 @@ public interface BoardService {
 	public int getTotal(Criteria cri);
 	//게시글 상세보기
 	public BoardDTO view(long boardNo);
+	//게시글 수정
+	public boolean modifyBoard(BoardDTO board);
 }

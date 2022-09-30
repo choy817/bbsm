@@ -27,4 +27,9 @@
 		SELECT * FROM bbsm_board WHERE boardNo=#{boardNo}
 	</select>
 	
+	<!--게시물 수정. -->
+	<update id="modifyBoard">
+		UPDATE bbsm_board SET boardTitle=#{boardTitle}, boardContent=#{boardContent} WHERE boardNo=#{boardNo}
+	</update>
+	
 </mapper>

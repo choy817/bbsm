@@ -31,12 +31,21 @@ public class BoardControllerTest {
 		this.mockMvc=MockMvcBuilders.webAppContextSetup(context).build();
 	}
 	
-	@Test
+//	@Test
 	public void getListWithPaging() throws Exception {
 		log.info(mockMvc.perform(
 				MockMvcRequestBuilders.get("/board/list")
 				.param("pageNum", "2")
 				.param("amount","10"))
+				.andReturn().getModelAndView().getModelMap());
+	}
+	
+	@Test
+	public void modifyTest() throws Exception{
+		log.info(mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
+				.param("boardNo", "515")
+				.param("boardTitle", "게시글 수정 테스트 ")
+				.param("boardContent","컨트롤러 테스트 "))
 				.andReturn().getModelAndView().getModelMap());
 	}
 

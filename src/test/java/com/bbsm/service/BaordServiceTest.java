@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.bbsm.domain.BoardDTO;
 import com.bbsm.domain.Criteria;
 
 import lombok.Setter;
@@ -31,10 +32,19 @@ public class BaordServiceTest {
 		boardService.getList(new Criteria(1, 10)).forEach(board -> log.info(board));;
 	}
 	
-	@Test
+//	@Test
 	public void viewTest() {
 		long boardNo=721L;
 		boardService.view(boardNo);
+	}
+	
+	@Test
+	public void modifyTest() {
+		BoardDTO board=new BoardDTO();
+		board.setBoardNo(513L);
+		board.setBoardContent("서비스 테스트 ");
+		board.setBoardTitle("서비스테스트입니다!!!!");
+		boardService.modifyBoard(board);
 	}
 
 }

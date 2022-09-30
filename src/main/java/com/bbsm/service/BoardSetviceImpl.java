@@ -44,4 +44,10 @@ public class BoardSetviceImpl implements BoardService{
 		return boardMapper.read(boardNo);
 	}
 
+	@Override
+	//게시글 수정 
+	public boolean modifyBoard(BoardDTO board) {
+		return boardMapper.modifyBoard(board);
+	}
+
 }

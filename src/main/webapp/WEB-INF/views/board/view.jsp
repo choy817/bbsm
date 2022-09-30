@@ -440,12 +440,15 @@
                             </div>
                         </div>
                     </section>
+                    <div class="button">
+                    	<button type="button" class="btn btn-primary btn-lg" id="submitButton" onclick="location.href='/board/modify${cri.getListLink()}&boardNo=${board.boardNo }'">수정 </button>
+                    	<button type="button" class="btn btn-secondary btn-lg" id="submitButton" onclick="location.href='/board/list${cri.getListLink()}'">목록 </button>
+                    </div>
+                    </div>
                 </div>
             </div>
             <!-- End of Main Content -->
-                     
-                    
-           	 	</div>
+           	</div>
             <!-- End of Main Content -->
 
             <!-- Footer -->
@@ -508,7 +511,7 @@
     
     <!-- write template scripts -->
 	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-
+	
 </body>
 
 </html>

@@ -366,95 +366,42 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+			
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Tables</h1>
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the <a target="_blank"
                             href="https://datatables.net">official DataTables documentation</a>.</p>
-
-                    <!-- DataTales Example -->
+                     
+                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>글번호 </th>
-                                            <th>글제목 </th>
-                                            <th>작성자 </th>
-                                            <th>조회수 </th>
-                                            <th>작성일 </th>
-                                            <th>추천수 </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-	                                    <c:forEach items="${list }" var="board">
-                                    		<tr>
-	                                    		<td>${board.boardNo}</td>
-	                                    		<td><a class="move" href="${board.boardNo }">${board.boardTitle}</a></td>
-	                                    		<td>${board.boardWriter}</td>
-	                                    		<td>${board.boardView}</td>
-	                                    		<td>${board.boardDate}</td>
-	                                    		<td>${board.boardReco}</td>
-                                    		</tr>	
-	                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                                <div class="row"> 
-                                <div class="col-sm-12 col-md-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                	<ul class="pagination">
-                                		<%-- 이전 페이지  --%>
-                                		<c:if test="${pageMaker.prev }">
-                                			<li class="paginate_button page-item" id="dataTable_previous">
-                                				<a class="page-link" aria-controls="dataTable" data-dt-idx="${pageMaker.startPage-1 }" href="${pageMaker.startPage-1 }">&laquo;</a>
-                                			</li>
-                                		</c:if>
-                                		<%-- 현재 페이지  --%>
-                                		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-                                			<c:choose>
-                                				<c:when test="${pageMaker.cri.pageNum == num }">
-                                					<li class="paginate_button page-item active">
-                                					<a class="page-link" href="#" aria-controls="dataTable" data-dt-idx="${num }" tabindex="0">${num }</a>
-                                					</li>
-                                				</c:when>
-                                				<c:otherwise>
-                                					<li class="paginate_button page-item ">
-                                						<a class="page-link" aria-controls="dataTable" data-dt-idx="${num }" tabindex="0" href="${num }">${num }</a>
-                                					</li>
-                                				</c:otherwise>
-                                			</c:choose>
-                                		</c:forEach>
-                                		
-                                		<%-- 다음 페이지  --%>
-                                		<c:if test="${pageMaker.next }">
-                                			<li class="paginate_button page-item next" id="dataTable_next">
-                                				<a class="page-link" href="${pageMaker.endPage+1 }">&raquo;</a>
-                                			</li>
-                                		</c:if>
-                                	</ul>
-                                	<form id="actionForm" action="/board/list">
-                                		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-                                		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-                                	</form>
-                                	<form id="pageForm" action="">
-                                		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-                                		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-                                	</form>
-                                </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
+          
+                    <!-- write template -->  
+                    <div class="container px-5 my-5">
+					    <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="/board/modify" method="post">
+					    	<input type="hidden" name="pageNum" value="${cri.pageNum }">
+					    	<input type="hidden" name="amount" value="${cri.amount }">
+					    	<input type="hidden" name="boardNo" value="${board.boardNo }">
+					        <div class="form-floating mb-3">
+					            <input class="form-control" id="newField3" type="text" name="boardTitle" value="${board.boardTitle }" data-sb-validations="required" />
+					            <div class="invalid-feedback" data-sb-feedback="newField3:required">제목을 입력해 주세요.</div>
+					        </div>
+					        <div class="form-floating mb-3">
+					            <textarea class="form-control" id="message" name="boardContent" style="height: 10rem;" data-sb-validations="required">${board.boardContent }</textarea>
+					            <div class="invalid-feedback" data-sb-feedback="message:required">내용을 입력해 주세요.</div>
+					        </div>
+					        <div class="d-grid">
+					            <button class="btn btn-primary btn-lg " id="submitButton" type="submit">수정 </button>
+					            <button class="btn btn-secondary btn-lg " id="submitButton" type="button" onclick="location.href='/board/list${cri.getListLink()}'">목록 </button>
+					        </div>
+					    </form>
+					</div>
+				</div>
+      			</div>
             </div>
             <!-- End of Main Content -->
 
@@ -508,23 +455,16 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
-    
-    <script type="text/javascript" src="/js/board/boardList.js"></script>
-    
-    <script type="text/javascript">
-	const msg="${msg}"
-		if(msg=="modSuccess"){
-			alert("게시글 수정이 완료되었습니다.")
-		}
-	</script>
-    
 
     <!-- Page level plugins -->
-   <!--  <script src="/vendor/datatables/jquery.dataTables.min.js"></script>-->
-  <!--  <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-   <!--  <script src="/js/demo/datatables-demo.js"></script>-->
+    <script src="/js/demo/datatables-demo.js"></script>
+    
+    <!-- write template scripts -->
+	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 
 </body>
 
