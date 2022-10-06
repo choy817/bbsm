@@ -16,4 +16,6 @@ public interface BoardService {
 	public BoardDTO view(long boardNo);
 	//게시글 수정
 	public boolean modifyBoard(BoardDTO board);
+	//게시글 삭제
+	public boolean deleteBoard(long boardNo);
 }

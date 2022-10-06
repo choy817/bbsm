@@ -40,12 +40,20 @@ public class BoardControllerTest {
 				.andReturn().getModelAndView().getModelMap());
 	}
 	
-	@Test
+//	@Test
 	public void modifyTest() throws Exception{
 		log.info(mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
 				.param("boardNo", "515")
 				.param("boardTitle", "게시글 수정 테스트 ")
 				.param("boardContent","컨트롤러 테스트 "))
+				.andReturn().getModelAndView().getModelMap());
+	}
+	
+	@Test
+	public void deleteTest() throws Exception{
+		log.info(mockMvc.perform(
+				MockMvcRequestBuilders.post("/board/delete")
+				.param("boardNo", "522"))
 				.andReturn().getModelAndView().getModelMap());
 	}
 

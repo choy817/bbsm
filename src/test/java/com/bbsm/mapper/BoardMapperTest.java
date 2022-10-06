@@ -46,13 +46,19 @@ public class BoardMapperTest {
 		boardMapper.read(boardNo);
 	}
 	
-	@Test
+//	@Test
 	public void modifyTest() {
 		BoardDTO board=new BoardDTO();
 		board.setBoardNo(1L);
 		board.setBoardTitle("수정 테스트!!!!");
 		board.setBoardContent("수정되어라 ");
 		log.info(boardMapper.modifyBoard(board));
+	}
+	
+	@Test
+	public void deleteTest() {
+		long boardNo=520L;
+		log.info(boardMapper.deleteBoard(boardNo));
 	}
 
 }

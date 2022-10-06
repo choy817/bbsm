@@ -61,5 +61,15 @@ public class BoardController {
 		}
 		return "redirect:/board/list"+cri.getListLink();
 	}
+	
+	@PostMapping("/delete")
+	public String delete(long boardNo,RedirectAttributes rttr, Criteria cri) {
+		log.info("Controller ==============> boardDelete........."+boardNo);
+		if(boardService.deleteBoard(boardNo)) {
+			log.info("게시글 삭제 성공.......");
+			rttr.addFlashAttribute("msg", "delSuccess");
+		}
+		return "redirect:/board/list"+cri.getListLink();
+	}
 
 }

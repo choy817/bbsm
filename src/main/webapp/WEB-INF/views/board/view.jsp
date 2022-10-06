@@ -379,7 +379,11 @@
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
                         <div class="card-body">
+                        	<form method="post" action="/board/delete" id="actionForm">
                             <div class="table-responsive">
+                                <input type="hidden" name="pageNum" value="${cri.pageNum }">
+					    		<input type="hidden" name="amount" value="${cri.amount }">
+					    		<input type="hidden" name="boardNo" value="${board.boardNo }">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <tr>
                                             <th colspan="8">${board.boardTitle } </th>
@@ -442,9 +446,11 @@
                     </section>
                     <div class="button">
                     	<button type="button" class="btn btn-primary btn-lg" id="submitButton" onclick="location.href='/board/modify${cri.getListLink()}&boardNo=${board.boardNo }'">수정 </button>
+                    	<button type="button" class="btn btn-secondary btn-lg" id="submitButton" onclick="javascript:deleteBoard();">삭제 </button>
                     	<button type="button" class="btn btn-secondary btn-lg" id="submitButton" onclick="location.href='/board/list${cri.getListLink()}'">목록 </button>
                     </div>
                     </div>
+                    </form>
                 </div>
             </div>
             <!-- End of Main Content -->
@@ -511,6 +517,8 @@
     
     <!-- write template scripts -->
 	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+	
+	<script src="/js/board/view.js"></script>
 	
 </body>
 

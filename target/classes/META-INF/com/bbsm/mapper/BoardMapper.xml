@@ -32,4 +32,9 @@
 		UPDATE bbsm_board SET boardTitle=#{boardTitle}, boardContent=#{boardContent} WHERE boardNo=#{boardNo}
 	</update>
 	
+	<!-- 게시물 삭제. -->
+	<delete id="deleteBoard">
+		DELETE FROM bbsm_board WHERE boardNo=#{boardNo}
+	</delete>
+	
 </mapper>

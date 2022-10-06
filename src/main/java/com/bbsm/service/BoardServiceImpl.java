@@ -14,7 +14,7 @@ import lombok.extern.log4j.Log4j;
 
 @Service
 @Log4j
-public class BoardSetviceImpl implements BoardService{
+public class BoardServiceImpl implements BoardService{
 	
 	@Setter(onMethod_ = @Autowired)
 	BoardMapper boardMapper;
@@ -48,6 +48,12 @@ public class BoardSetviceImpl implements BoardService{
 	//게시글 수정 
 	public boolean modifyBoard(BoardDTO board) {
 		return boardMapper.modifyBoard(board);
+	}
+
+	@Override
+	//게시글 삭제
+	public boolean deleteBoard(long boardNo) {
+		return boardMapper.deleteBoard(boardNo);
 	}
 
 }

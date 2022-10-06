@@ -38,13 +38,19 @@ public class BaordServiceTest {
 		boardService.view(boardNo);
 	}
 	
-	@Test
+//	@Test
 	public void modifyTest() {
 		BoardDTO board=new BoardDTO();
 		board.setBoardNo(513L);
 		board.setBoardContent("서비스 테스트 ");
 		board.setBoardTitle("서비스테스트입니다!!!!");
 		boardService.modifyBoard(board);
+	}
+	
+	@Test
+	public void deleteTest() {
+		long boardNo=521L;
+		log.info(boardService.deleteBoard(boardNo));
 	}
 
 }

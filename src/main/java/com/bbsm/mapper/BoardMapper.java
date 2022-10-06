@@ -16,4 +16,6 @@ public interface BoardMapper {
 	public BoardDTO read(long boardNo);
 	//게시물 수정하기
 	public boolean modifyBoard(BoardDTO board);
+	//게시물 삭제하기
+	public boolean deleteBoard(long boardNo);
 }

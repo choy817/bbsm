@@ -515,6 +515,8 @@
 	const msg="${msg}"
 		if(msg=="modSuccess"){
 			alert("게시글 수정이 완료되었습니다.")
+		}else if(msg=="delSuccess"){
+			alert("게시글 삭제가 완료되었습니다.")
 		}
 	</script>
     
