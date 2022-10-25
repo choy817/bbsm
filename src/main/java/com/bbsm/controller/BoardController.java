@@ -59,6 +59,7 @@ public class BoardController {
 			log.info("게시글 수정 성공.......");
 			rttr.addFlashAttribute("msg", "modSuccess");
 		}
+		
 		return "redirect:/board/list"+cri.getListLink();
 	}
 	
@@ -69,6 +70,7 @@ public class BoardController {
 			log.info("게시글 삭제 성공.......");
 			rttr.addFlashAttribute("msg", "delSuccess");
 		}
+		
 		return "redirect:/board/list"+cri.getListLink();
 	}
 

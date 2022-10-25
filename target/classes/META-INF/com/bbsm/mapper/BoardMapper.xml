@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 인터페이스가 있는 경로를 적어서 Mapper 인터페이스와 연결한다. -->
 <mapper namespace="com.bbsm.mapper.BoardMapper">
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<choose>
+						<!-- 제목  -->
+						<when test="type == 'T'.toString()">
+							boardTitle like '%'||#{keyword}||'%'
+						</when>
+						<!-- 내용  -->
+						<when test="type == 'C'.toString()">
+							boardContent like '%'||#{keyword}||'%'
+						</when>
+						<!-- 작성자  -->
+						<when test="type == 'W'.toString()">
+							boardWriter like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>			
+			</foreach>
+		</trim>
+	</sql>
 	<!-- 리스트 가져오기  -->
 	<select id="getList" resultType="com.bbsm.domain.BoardDTO">
 		SELECT * FROM bbsm_board WHERE boardNo>0
@@ -11,16 +33,23 @@
 		<![CDATA[
 		SELECT * 
 		FROM (
-			SELECT /*+ INDEX_DESC(tbl_bbsm boardNo)*/ rownum rn, boardNo, boardTitle, boardContent, boardWriter, boardView, boardDate, boardReco
+			SELECT /*+INDEX_DESC(tbl_bbsm boardNo)*/ 
+				rownum rn, boardNo, boardTitle, boardContent, boardWriter, boardView, boardDate, boardReco
 		 	FROM bbsm_board 
-		 	WHERE rownum <= #{pageNum} * #{amount}
+		 	WHERE 
+		]]>
+		<include refid="criteria"></include>
+		<![CDATA[
+		 	rownum <= #{pageNum} * #{amount}
 		 	)
 		WHERE rn>(#{pageNum}-1) * #{amount} 
 	]]>
 	</select>
 	<!--전체 데이터 개수. -->
 	<select id="getTotal" resultType="int">
-		SELECT COUNT(*) FROM bbsm_board WHERE boardNo > 0
+		SELECT COUNT(*) FROM bbsm_board 
+		WHERE <include refid="criteria"></include>
+		boardNo > 0
 	</select>
 	<!-- 게시글 상세보기. -->
 	<select id="read" resultType="com.bbsm.domain.BoardDTO">

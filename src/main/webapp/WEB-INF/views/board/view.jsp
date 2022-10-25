@@ -383,6 +383,8 @@
                             <div class="table-responsive">
                                 <input type="hidden" name="pageNum" value="${cri.pageNum }">
 					    		<input type="hidden" name="amount" value="${cri.amount }">
+					    		<input type="hidden" name="keyword" value="${cri.keyword }">
+					    		<input type="hidden" name="type" value="${cri.type }">
 					    		<input type="hidden" name="boardNo" value="${board.boardNo }">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <tr>

@@ -385,6 +385,8 @@
 					    <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="/board/modify" method="post">
 					    	<input type="hidden" name="pageNum" value="${cri.pageNum }">
 					    	<input type="hidden" name="amount" value="${cri.amount }">
+					    	<input type="hidden" name="keyword" value="${cri.keyword }">
+					    	<input type="hidden" name="type" value="${cri.type }">
 					    	<input type="hidden" name="boardNo" value="${board.boardNo }">
 					        <div class="form-floating mb-3">
 					            <input class="form-control" id="newField3" type="text" name="boardTitle" value="${board.boardTitle }" data-sb-validations="required" />

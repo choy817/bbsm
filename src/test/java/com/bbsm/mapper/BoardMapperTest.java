@@ -55,10 +55,22 @@ public class BoardMapperTest {
 		log.info(boardMapper.modifyBoard(board));
 	}
 	
-	@Test
+//	@Test
 	public void deleteTest() {
 		long boardNo=520L;
 		log.info(boardMapper.deleteBoard(boardNo));
+	}
+	
+	@Test
+	public void searchTest() {
+		Criteria cri=new Criteria();
+		cri.setKeyword("modify");
+		cri.setType("C");
+		
+		List<BoardDTO> list=boardMapper.getListWithPaging(cri);
+		
+		list.forEach(board -> log.info(board));
+		
 	}
 
 }

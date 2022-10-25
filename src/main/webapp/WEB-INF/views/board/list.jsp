@@ -379,6 +379,30 @@
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
                         <div class="card-body">
+                        	<div class="row">
+                        		<div class="col-sm-12 col-md-6">
+                        			<div id="dataTables_filter" class="dataTables_filter">
+                        				<form action="/board/list" id="searchForm" method="get">
+                        					<label>
+                                				<select name="type" style="border: 1px solid #e3e6f0">
+                                					<option ${pageMaker.cri.type == null? 'selected':'' } value="">검색기준 </option>
+                                					<option ${pageMaker.cri.type == 'T'? 'selected':'' } value="T">제목 </option>
+                                					<option ${pageMaker.cri.type == 'C'? 'selected':'' } value="C">내용 </option>
+                                					<option ${pageMaker.cri.type == 'W'? 'selected':'' } value="W">작성자 </option>
+                                					<option ${pageMaker.cri.type == 'TC'? 'selected':'' } value="TC">제목 또는 내용 </option>
+                                					<option ${pageMaker.cri.type == 'TW'? 'selected':'' } value="TW">제목 또는 작성자 </option>
+                                					<option ${pageMaker.cri.type == 'TCW'? 'selected':'' } value="TCW">제목 또는 내용 또는 작성자 </option>
+                                				</select>
+                                				<input type="text" name="keyword" value="${pageMaker.cri.keyword }" style="border: 1px solid #e3e6f0">
+                                				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+                                				<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+                                				<a href="#" class="btn btn-primary btn-icon-split">검색 </a>
+                           					</label>
+                                		</form>
+                                	</div>
+                                </div>
+                               	<div class="col-sm-12 col-md-6"></div>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -437,13 +461,18 @@
                                 			</li>
                                 		</c:if>
                                 	</ul>
-                                	<form id="actionForm" action="/board/list">
+                                	<form id="actionForm" action="/board/list" method="get">
                                 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
                                 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+                                		<input type="hidden" name="type" value="${pageMaker.cri.type }">
+                                		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
                                 	</form>
+                                	<%-- 다른 페이지로 이동 한 후 다시 목록 돌아올 때 이전 페이지 번호를 기억  --%>
                                 	<form id="pageForm" action="">
                                 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
                                 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+                                		<input type="hidden" name="type" value="${pageMaker.cri.type }">
+                                		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
                                 	</form>
                                 </div>
                                 </div>
@@ -519,7 +548,7 @@
 			alert("게시글 삭제가 완료되었습니다.")
 		}
 	</script>
-    
+    <script type="text/javascript">console.log("${pageMaker.endPage}")</script>
 
     <!-- Page level plugins -->
    <!--  <script src="/vendor/datatables/jquery.dataTables.min.js"></script>-->

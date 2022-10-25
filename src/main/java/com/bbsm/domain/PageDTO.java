@@ -16,15 +16,16 @@ public class PageDTO {
 		this.total=total;
 		this.cri=cri;
 		
-		this.endPage=(int) (Math.ceil(cri.getPageNum()/10.0))*10;
+		this.endPage=(int)(Math.ceil(cri.getPageNum()/10.0)*10);
 		this.startPage=this.endPage-9;
-		this.realEnd=(int) (Math.ceil((total*1.0)/cri.getAmount()));
+		this.realEnd=(int)(Math.ceil(total*1.0/cri.getAmount()));
 		
-		if (endPage>realEnd) {
-			endPage=realEnd;
+		if(this.endPage>realEnd) {
+			this.endPage=realEnd;
 		}
-		prev=startPage>1;
-		next=endPage<realEnd;
+		
+		this.prev=this.startPage>1;
+		this.next=this.endPage<realEnd;
 	}
 	
 	
