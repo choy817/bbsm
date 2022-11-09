@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 인터페이스가 있는 경로를 적어서 Mapper 인터페이스와 연결한다. -->
+<mapper namespace="com.bbsm.mapper.ReplyMapper">
+	<!-- 댓글 목록  -->
+	<select id="getListWithPaging" resultType="com.bbsm.domain.ReplyDTO">
+		SELECT * FROM bbsm_reply WHERE boardNo=#{boardNo} ORDER BY replyNo ASC
+	</select>
+	
+	<!-- 댓글 조회  -->
+	<select id="getReply" resultType="com.bbsm.domain.ReplyDTO">
+		SELECT * FROM bbsm_reply WHERE replyNo=#{replyNo}
+	</select>
+	
+	<!-- 댓글 삽입  -->
+	<insert id="insertReply">
+		INSERT INTO bbsm_reply(replyNo, boardNo, replyContent, replyer) 
+		VALUES(reply_seq.nextval, #{boardNo}, #{replyContent}, #{replyer})
+	</insert>
+	
+	<!-- 댓글 수정  -->
+	<update id="updateReply">
+		UPDATE bbsm_reply SET replyContent=#{replyContent}, modDate=SYSDATE WHERE replyNo=#{replyNo}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply">
+		DELETE FROM bbsm_reply WHERE replyNo=#{replyNo}
+	</delete>
+</mapper>

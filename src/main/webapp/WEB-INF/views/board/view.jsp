@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 
@@ -389,7 +389,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <tr>
                                             <th colspan="8">${board.boardTitle } </th>
-                                        </tr>   
+                                        </tr>  
                                         <tr>
                                             <td style="border-right:none">작성자 </td>
                                             <td style="border-right:none">${board.boardWriter }  </td>
@@ -402,6 +402,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="8" style="padding-bottom:300px">${board.boardContent } </td>
+                                            <td></td>
                                         </tr>
                                  </table>
                     <!-- Comments section-->
@@ -409,41 +410,13 @@
                         <div class="card bg-light">
                             <div class="card-body">
                                 <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                                <!-- Comment with nested comments-->
-                                <div class="d-flex mb-4">
-                                    <!-- Parent comment-->
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                        <!-- Child comment 1-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                            </div>
-                                        </div>
-                                        <!-- Child comment 2-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                When you put money directly to a problem, it makes a good headline.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single comment-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                    </div>
-                                </div>
-                            </div>
+                                	<input type="text" name="replyer" value="${sessionScope.user.userName}" readonly>
+                                	<textarea class="form-control" name="reply-content" rows="3" style="resize: none;width: 100%;" placeholder="댓글을 입력하세요."></textarea>
+                                	<a href="#" id="addReplyBtn" class="btn btn-primary addReplyBtn">댓글 등록 </a>
+                                	<!-- 댓글 리스트  -->
+                                	<ul class="replies" style="padding-left: 0;">
+                                	</ul>
+                        </div>
                         </div>
                     </section>
                     <div class="button">
@@ -518,9 +491,99 @@
     <script src="/js/demo/datatables-demo.js"></script>
     
     <!-- write template scripts -->
-	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+	<!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
 	
 	<script src="/js/board/view.js"></script>
+	<script src="/js/board/reply.js"></script>
+	<script>
+	$(document).ready(function(){
+        var bnoValue="${board.boardNo}";
+        var replyUL = $(".replies");
+        var pageNum = 1;
+        
+        showList(pageNum);
+        
+       	function showList(page){
+    	   replyService.getList({boardNo:bnoValue, page:1},function(list){
+    		   var str="";
+    		   
+    		   if(list==null || list.length==0){
+    			   replyUL.html("댓글이 없습니다.");
+    			   return;
+    		   }
+    		   for(var i=0, len=list.length||0;i<len;i++){
+    			   	str +="<li class='reply_list' style = 'disply:block;list-style:none;' data-rno='"+ list[i].replyNo +"'>";
+					str +="<p><strong>"+list[i].replyer+"</strong></p>";
+					str +="<p class='reply"+list[i].replyNo+"'>"+list[i].replyContent+"</p>";
+					str +="<div style='text-align:right;'>"+replyService.displayTime(list[i].modDate);
+					
+					str+="<br><a href='"+list[i].replyNo+"'class='modify'>수정</a>";
+					str+="<a href='"+list[i].replyNo+"' class='finish' style='display:none;'>수정 완료</a>";//댓글 작성 시간은 최종 수정시간이 기준 
+					str+="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='"+list[i].replyNo+"'class='remove'>삭제</a>";
+					
+					str +="<div class='reply'></div><hr></li>"; 
+    		   }
+    		   replyUL.html(str);
+    	   }); 
+       	}
+        
+       	//댓글 등록 
+       	$(".addReplyBtn").on("click",function(e){
+    	   e.preventDefault();
+    	   var replyContent=$("textarea[name='reply-content']").val();
+    	   var replyer=$("input[name='replyer']").val();
+    	   replyService.add({replyContent:replyContent, replyer:replyer, boardNo:bnoValue},function(result){
+    		   console.log(result);
+    		   alert("등록이 완료되었습니다.");
+    		   showList(pageNum);
+    	   })
+ 			
+       	});
+       	
+       	//댓글 삭제
+       	$(".replies").on("click","a.remove",function(e){
+       		e.preventDefault();
+       		var rnoValue=$(this).attr("href");
+       		replyService.remove(rnoValue,function(result){
+       			alert("댓글이 삭제되었습니다.");
+       			showList(pageNum);
+       		})
+       	})
+       
+       	//댓글 수정 버튼 눌렀을 때 
+       	$(".replies").on("click","a.modify",function(e){
+       		e.preventDefault();
+       		var rnoValue=$(this).attr("href");
+       		var replyTag=$(".reply"+rnoValue);
+       		
+       		replyTag.html("<textarea class='"+rnoValue+"'>"+replyTag.text()+"</textarea>")
+       		$(this).hide();
+       		
+       		var finishs=$(".finish");
+       		
+       		for(let i=0; i<finishs.length;i++){
+       			if($(finishs[i]).attr("href")==rnoValue){
+       				$(finishs[i]).show();
+       				break;
+       			}
+       		}
+       	});
+       	//댓글 수정 완료 버튼 눌렀을 때 
+       $(".replies").on("click","a.finish",function(e){
+    	   e.preventDefault();
+    	   var rnoValue=$(this).attr("href");
+    	   
+    	   replyService.update({replyNo:rnoValue,replyContent:$("."+rnoValue).val()},
+    			   function(result){
+    		   			alert("수정이 완료되었습니다.");
+    		   			showList(pageNum);
+    	   })
+       })
+       
+        
+    });
+	</script>
+	
 	
 </body>
 
