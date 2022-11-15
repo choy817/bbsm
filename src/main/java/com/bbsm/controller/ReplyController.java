@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bbsm.domain.Criteria;
 import com.bbsm.domain.ReplyDTO;
+import com.bbsm.domain.ReplyPageDTO;
 import com.bbsm.service.ReplySerivce;
 
 import lombok.Setter;
@@ -42,10 +43,10 @@ public class ReplyController {
 	
 	//댓글 전체 조회 
 	@GetMapping(value = "/pages/{boardNo}/{page}", produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<ReplyDTO>> getList(@PathVariable("boardNo") Long boardNo, @PathVariable("page") int page){
+	public ResponseEntity<ReplyPageDTO> getList(@PathVariable("boardNo") Long boardNo, @PathVariable("page") int page){
 		log.info("Controller ==============> getList........."+boardNo);
 		Criteria cri=new Criteria(page, 10);
-		return new ResponseEntity<>(replyService.getListWithPaging(cri, boardNo), HttpStatus.OK);
+		return new ResponseEntity<ReplyPageDTO>(replyService.getListWithPaging(cri, boardNo), HttpStatus.OK);
 	}
 	
 	//댓글 한개만 조회 

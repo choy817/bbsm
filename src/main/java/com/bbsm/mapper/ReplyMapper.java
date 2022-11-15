@@ -18,5 +18,6 @@ public interface ReplyMapper {
 	public int deleteReply(Long replyNo);
 	//댓글 목록 
 	public List<ReplyDTO> getListWithPaging(@Param("cri") Criteria cri, @Param("boardNo") Long boardNo);
-	
+	//해당 게시물의 댓글 총 갯수 
+	public int getTotal(Long boardNo);
 }

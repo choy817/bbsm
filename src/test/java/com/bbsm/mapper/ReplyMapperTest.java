@@ -55,7 +55,7 @@ public class ReplyMapperTest {
 		
 	}
 	
-	@Test
+//	@Test
 	public void updateTest() {
 		ReplyDTO reply= new ReplyDTO();
 		reply.setReplyNo(2L);
@@ -76,5 +76,15 @@ public class ReplyMapperTest {
 		Criteria cri=new Criteria();
 		List<ReplyDTO> replies=replyMapper.getListWithPaging(cri, bnoArr[1]);
 		replies.forEach(reply -> log.info(reply));
+	}
+	
+	@Test
+	public void listTest2() {
+		Criteria cri=new Criteria(1,10);
+		
+		List<ReplyDTO> replies=replyMapper.getListWithPaging(cri, 513L);
+		
+		replies.forEach(reply -> log.info(reply));
+				
 	}
 }

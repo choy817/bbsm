@@ -416,6 +416,7 @@
                                 	<!-- 댓글 리스트  -->
                                 	<ul class="replies" style="padding-left: 0;">
                                 	</ul>
+                                	<div class="paging" style="text-align: center;"></div>
                         </div>
                         </div>
                     </section>
@@ -500,11 +501,57 @@
         var bnoValue="${board.boardNo}";
         var replyUL = $(".replies");
         var pageNum = 1;
+       	var replyPaging=$(".paging");
         
         showList(pageNum);
         
+        //댓글 페이징 처리 
+        function showReplyPage(replyCnt){
+        	var str="";
+        	var endNum=Math.ceil(pageNum/10.0)*10;
+        	var startNum=endNum-9;
+        	var realEnd=Math.ceil(replyCnt/10.0);
+        	
+        	var prev=startNum!=1;
+        	var next=false;
+        	
+        	console.log(endNum);
+        	console.log(startNum);
+        	console.log(realEnd);
+        	
+        	if(endNum>realEnd/10.0){
+        		endNum=realEnd;
+        	}
+        	if(endNum*10<replyCnt){
+        		next=true;
+        	}
+        	if(prev){
+        		str+="<a class='changePage' href='"+(startNum-1)+"'><code>&lt;</code></a>";
+        	}
+        	for(let i = startNum; i <=endNum; i++){
+				if(pageNum == i){
+					str+="<code>" + i + "</code>";
+					continue;
+				}
+				str += "<a class='changePage' href='"+i+"'><code>"+ i + "</code></a>";
+			}
+        	if(next){
+        		str+="<a class='changePage' href='"+(endNum+1)+"'><code>&gt;</code></a>";
+        	}
+        	replyPaging.html(str);
+        }
+        //페이지 이동 
+        	$(".paging").on("click","a.changePage",function(e){
+        		e.preventDefault();
+        		pageNum=parseInt($(this).attr("href"));
+        		//페이지 이동 후 목록 보여주기 
+        		showList(pageNum);
+        	});
+        
        	function showList(page){
-    	   replyService.getList({boardNo:bnoValue, page:1},function(list){
+    	   replyService.getList({boardNo:bnoValue, page:page||1},function(replyCnt, list){
+    		   console.log("list:"+list+","+"replyCnt:"+replyCnt);
+    		   
     		   var str="";
     		   
     		   if(list==null || list.length==0){
@@ -524,6 +571,7 @@
 					str +="<div class='reply'></div><hr></li>"; 
     		   }
     		   replyUL.html(str);
+    		   showReplyPage(replyCnt);
     	   }); 
        	}
         

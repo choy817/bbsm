@@ -23,7 +23,7 @@ var replyService=(function(){
 
         $.getJSON("/replies/pages/"+boardNo+"/"+page+".json",function(data){
             if(callback){
-                callback(data);
+                callback(data.replyCnt, data.list);
             }
         }).fail(function(xhr,status,err){
             if(error){

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bbsm.domain.Criteria;
 import com.bbsm.domain.ReplyDTO;
+import com.bbsm.domain.ReplyPageDTO;
 import com.bbsm.mapper.ReplyMapper;
 
 import lombok.Setter;
@@ -40,9 +41,10 @@ public class ReplyServiceImpl implements ReplySerivce {
 	}
 
 	@Override
-	public List<ReplyDTO> getListWithPaging(Criteria cri, Long boardNo) {
-		return replyMapper.getListWithPaging(cri, boardNo);
+	public ReplyPageDTO getListWithPaging(Criteria cri, Long boardNo) {
+		return new ReplyPageDTO(replyMapper.getTotal(boardNo), replyMapper.getListWithPaging(cri, boardNo));
 	}
+
 	
 	
 

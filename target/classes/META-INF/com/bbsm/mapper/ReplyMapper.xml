@@ -4,12 +4,27 @@
 <mapper namespace="com.bbsm.mapper.ReplyMapper">
 	<!-- 댓글 목록  -->
 	<select id="getListWithPaging" resultType="com.bbsm.domain.ReplyDTO">
-		SELECT * FROM bbsm_reply WHERE boardNo=#{boardNo} ORDER BY replyNo ASC
+		<![CDATA[
+			SELECT ReplyNo, BoardNo, replyContent ,replyer, replyDate, modDate
+			FROM(
+				SELECT /*INDEX(bbsm_reply reply_idx) */
+					ROWNUM rn, replyNo, boardNo, replyContent, replyer, replyDate, modDate
+				FROM bbsm_reply
+				WHERE boardNo=#{boardNo}
+				and replyNo>0
+				and rownum <= #{cri.pageNum} * #{cri.amount}
+				) WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
+		]]>
 	</select>
 	
 	<!-- 댓글 조회  -->
 	<select id="getReply" resultType="com.bbsm.domain.ReplyDTO">
 		SELECT * FROM bbsm_reply WHERE replyNo=#{replyNo}
+	</select>
+	
+	<!-- 댓글 총 개수  -->
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(boardNo) FROM bbsm_reply WHERE boardNo=#{boardNo}
 	</select>
 	
 	<!-- 댓글 삽입  -->

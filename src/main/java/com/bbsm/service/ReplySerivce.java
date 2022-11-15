@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.bbsm.domain.Criteria;
 import com.bbsm.domain.ReplyDTO;
+import com.bbsm.domain.ReplyPageDTO;
 
 public interface ReplySerivce {
 	//댓글 삽입 
@@ -17,7 +18,8 @@ public interface ReplySerivce {
 	//댓글 삭제
 	public boolean deleteReply(Long replyNo);
 	//댓글 목록 
-	public List<ReplyDTO> getListWithPaging(@Param("cri") Criteria cri, @Param("boardNo") Long boardNo);
+	public ReplyPageDTO getListWithPaging(@Param("cri") Criteria cri, @Param("boardNo") Long boardNo);
+	
 	
 
 }
