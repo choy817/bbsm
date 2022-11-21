@@ -56,6 +56,15 @@
 		SELECT * FROM bbsm_board WHERE boardNo=#{boardNo}
 	</select>
 	
+	<!-- 게시물 작성  -->
+	<insert id="write">
+		<selectKey keyProperty="boardNo" resultType="long" order="BEFORE">
+			SELECT board_seq.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO bbsm_board(boardNo, boardTitle, boardContent, boardWriter, boardView, boardReco) 
+		VALUES(#{boardNo}, #{boardTitle}, #{boardContent}, #{boardWriter}, #{boardView}, #{boardReco})
+	</insert>
+	
 	<!--게시물 수정. -->
 	<update id="modifyBoard">
 		UPDATE bbsm_board SET boardTitle=#{boardTitle}, boardContent=#{boardContent} WHERE boardNo=#{boardNo}

@@ -61,7 +61,7 @@ public class BoardMapperTest {
 		log.info(boardMapper.deleteBoard(boardNo));
 	}
 	
-	@Test
+//	@Test
 	public void searchTest() {
 		Criteria cri=new Criteria();
 		cri.setKeyword("modify");
@@ -71,6 +71,15 @@ public class BoardMapperTest {
 		
 		list.forEach(board -> log.info(board));
 		
+	}
+	@Test
+	public void writeTest() {
+		BoardDTO board=new BoardDTO();
+		board.setBoardTitle("write test");
+		board.setBoardWriter("banana");
+		board.setBoardContent("test");
+		board.setBoardDate("2020-11-22");
+		boardMapper.write(board);
 	}
 
 }

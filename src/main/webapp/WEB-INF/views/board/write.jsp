@@ -6,7 +6,7 @@
 <html lang="en">
 
 <head>
-
+	<script type="text/javascript" src="../resources/ckeditor/ckeditor.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -382,27 +382,18 @@
           
                     <!-- write template -->  
                     <div class="container px-5 my-5">
-					    <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+					    <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="post">
+					    	<input type="hidden" id="boardWriter" name="boardWriter" value="${sessionScope.user.userName }">
 					        <div class="form-floating mb-3">
-					            <input class="form-control" id="newField3" type="text" placeholder="제목 " data-sb-validations="required" />
-					            <div class="invalid-feedback" data-sb-feedback="newField3:required">제목을 입력해 주세요 </div>
+					            <input class="form-control boardTitle" id="boardTitle" name="boardTitle" type="text" placeholder="제목 " data-sb-validations="required" />
+					            <span id="checkTitle"></span> 
 					        </div>
 					        <div class="form-floating mb-3">
-					            <textarea class="form-control" id="message" type="text" placeholder="내용 " style="height: 10rem;" data-sb-validations="required"></textarea>
-					            <div class="invalid-feedback" data-sb-feedback="message:required">내용을 입력해 주세요 </div>
-					        </div>
-					        <div class="d-none" id="submitSuccessMessage">
-					            <div class="text-center mb-3">
-					                <div class="fw-bolder">Form submission successful!</div>
-					                <p>To activate this form, sign up at</p>
-					                <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-					            </div>
-					        </div>
-					        <div class="d-none" id="submitErrorMessage">
-					            <div class="text-center text-danger mb-3">Error sending message!</div>
+					            <textarea class="form-control boardContent" id="boardContent" name="boardContent" type="text" placeholder="내용 " style="height: 10rem;" data-sb-validations="required"></textarea>
+					            <span id="checkContent"></span> 
 					        </div>
 					        <div class="d-grid">
-					            <button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Submit</button>
+					            <input class="btn btn-primary btn-lg" id="submitButton" type="button" value="글쓰기" onclick="javascript:sendIt();">
 					        </div>
 					    </form>
 					</div>
@@ -471,6 +462,15 @@
     
     <!-- write template scripts -->
 	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+	<script src="/js/board/write.js"></script>
+	
+	<script type="text/javascript">
+		CKEDITOR.replace( 'boardContent', { //해당 이름으로 된 textarea에 에디터를 적용
+	       width:'100%',
+	       height:'400px',
+	       filebrowserUploadUrl:  "/board/fileUpload" //컨트롤러와 연결(!!!!!!!!!!!!!!!!나중에 수정하기!!!!!!!!!!!!)
+	    });
+	</script>
 
 </body>
 

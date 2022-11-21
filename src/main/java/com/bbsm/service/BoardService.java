@@ -18,4 +18,6 @@ public interface BoardService {
 	public boolean modifyBoard(BoardDTO board);
 	//게시글 삭제
 	public boolean deleteBoard(long boardNo);
+	//게시글 작성 
+	public boolean write(BoardDTO board);
 }

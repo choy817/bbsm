@@ -56,4 +56,10 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.deleteBoard(boardNo);
 	}
 
+	@Override
+	//게시글 작성 
+	public boolean write(BoardDTO board) {
+		return boardMapper.write(board);
+	}
+
 }

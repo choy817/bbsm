@@ -37,7 +37,9 @@
 		<property name="username" value="ADMIN"/>
 		<property name="password" value="Bbangsm1234!"/>
 	</bean>
-		
+	
+	
+	
 	<bean id="datasource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
 	</bean>  
