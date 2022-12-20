@@ -72,7 +72,7 @@ public class BoardMapperTest {
 		list.forEach(board -> log.info(board));
 		
 	}
-	@Test
+//	@Test
 	public void writeTest() {
 		BoardDTO board=new BoardDTO();
 		board.setBoardTitle("write test");
@@ -80,6 +80,21 @@ public class BoardMapperTest {
 		board.setBoardContent("test");
 		board.setBoardDate("2020-11-22");
 		boardMapper.write(board);
+	}
+	
+//	@Test
+	public void viewsCntTest() {
+//		BoardDTO board=new BoardDTO();
+//		board.setBoardNo(1029L);
+//		log.info(boardMapper.viewsCnt(board));
+		Long boardNo=1025L;
+		log.info(boardMapper.viewsCnt(boardNo));
+	}
+	
+	@Test
+	public void updateReco() {
+		long boardNo=3008L;
+		log.info(boardMapper.updateReco(boardNo));
 	}
 
 }

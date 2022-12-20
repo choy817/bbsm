@@ -47,10 +47,14 @@ public class BaordServiceTest {
 		boardService.modifyBoard(board);
 	}
 	
-	@Test
+//	@Test
 	public void deleteTest() {
 		long boardNo=521L;
 		log.info(boardService.deleteBoard(boardNo));
 	}
-
+	@Test
+	public void recoTest() {
+		long boardNo=1028L;
+		log.info(boardService.recoCnt(boardNo));
+	}
 }

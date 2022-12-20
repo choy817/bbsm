@@ -401,7 +401,9 @@
                                 		</form>
                                 	</div>
                                 </div>
-                               	<div class="col-sm-12 col-md-6"></div>
+                               	<div class="col-sm-12 col-md-6">
+                               		<a href="/board/write" class="btn btn-primary btn-lg" style="float: right;margin-bottom: 8px;">글쓰기 </a>
+                               	</div>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

@@ -61,5 +61,17 @@ public class BoardServiceImpl implements BoardService{
 	public boolean write(BoardDTO board) {
 		return boardMapper.write(board);
 	}
-
+	
+	@Override
+	public boolean viewsCnt(long boardNo) {
+		return boardMapper.viewsCnt(boardNo);
+	}
+	@Override
+	public int recoCnt(long boardNo) {
+		return boardMapper.updateReco(boardNo);
+	}
+	@Override
+	public int getReco(long boardNo) {
+		return boardMapper.getReco(boardNo);
+	}
 }

@@ -388,7 +388,7 @@
 					    		<input type="hidden" name="boardNo" value="${board.boardNo }">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <tr>
-                                            <th colspan="8">${board.boardTitle } </th>
+                                            <th style="border-right:none" colspan="8">${board.boardTitle } </th>
                                         </tr>  
                                         <tr>
                                             <td style="border-right:none">작성자 </td>
@@ -398,13 +398,15 @@
                                             <td style="border-right:none">작성일 </td>
                                             <td style="border-right:none">${board.boardDate }</td>
                                             <td style="border-right:none">추천수 </td>
-                                            <td>${board.boardReco }</td>
+                                            <td style="border-right:none">${board.boardReco }</td>
                                         </tr>
                                         <tr>
-                                            <td colspan="8" style="padding-bottom:300px">${board.boardContent } </td>
-                                            <td></td>
+                                            <td colspan="8" style="padding-bottom:300px;border-right:none">${board.boardContent } </td>
                                         </tr>
                                  </table>
+                                 <div>
+                                 	<input type="button" class="recoBtn btn btn-primary" style="display: inline-block;" value="추천 ">
+                                 </div>
                     <!-- Comments section-->
                     <section class="mb-5">
                         <div class="card bg-light">
@@ -496,9 +498,10 @@
 	
 	<script src="/js/board/view.js"></script>
 	<script src="/js/board/reply.js"></script>
+	<script> var contextPath = "${pageContext.request.contextPath}";</script>
 	<script>
 	$(document).ready(function(){
-        var bnoValue="${board.boardNo}";
+        var boardNo="${board.boardNo}";
         var replyUL = $(".replies");
         var pageNum = 1;
        	var replyPaging=$(".paging");
@@ -549,7 +552,7 @@
         	});
         
        	function showList(page){
-    	   replyService.getList({boardNo:bnoValue, page:page||1},function(replyCnt, list){
+    	   replyService.getList({boardNo:boardNo, page:page||1},function(replyCnt, list){
     		   console.log("list:"+list+","+"replyCnt:"+replyCnt);
     		   
     		   var str="";
@@ -580,7 +583,7 @@
     	   e.preventDefault();
     	   var replyContent=$("textarea[name='reply-content']").val();
     	   var replyer=$("input[name='replyer']").val();
-    	   replyService.add({replyContent:replyContent, replyer:replyer, boardNo:bnoValue},function(result){
+    	   replyService.add({replyContent:replyContent, replyer:replyer, boardNo:boardNo},function(result){
     		   console.log(result);
     		   alert("등록이 완료되었습니다.");
     		   showList(pageNum);
@@ -627,9 +630,30 @@
     		   			showList(pageNum);
     	   })
        })
+	//추천
+	$(".recoBtn").on("click",function () {
+		console.log(boardNo);
+		$.ajax({
+			type:"post",
+			url :contextPath+"/board/recoCnt",
+			contentType:"application/json; charset=UTF-8",
+			dataType:"json",
+			data: boardNo,
+			success:function(data){
+				if(data==0){
+					console.log("추천 실패");
+				}else{
+					console.log("추천 완료");
+					location.reload();
+				}
+			}
+		
+		});
+	  });
        
         
     });
+	
 	</script>
 	
 	

@@ -56,13 +56,18 @@
 		SELECT * FROM bbsm_board WHERE boardNo=#{boardNo}
 	</select>
 	
+	<!-- 게시물 추천수 가져오기  -->
+	<select id="getReco" resultType="int">
+		SELECT COUNT(*) FROM bbsm_board WHERE boardNo=#{boardNo}
+	</select>
+	
 	<!-- 게시물 작성  -->
 	<insert id="write">
 		<selectKey keyProperty="boardNo" resultType="long" order="BEFORE">
 			SELECT board_seq.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO bbsm_board(boardNo, boardTitle, boardContent, boardWriter, boardView, boardReco) 
-		VALUES(#{boardNo}, #{boardTitle}, #{boardContent}, #{boardWriter}, #{boardView}, #{boardReco})
+		INSERT INTO bbsm_board(boardNo, boardTitle, boardContent, boardWriter, boardView, boardDate, boardReco) 
+		VALUES(#{boardNo}, #{boardTitle}, #{boardContent}, #{boardWriter}, #{boardView}, SYSDATE, #{boardReco})
 	</insert>
 	
 	<!--게시물 수정. -->
@@ -70,6 +75,14 @@
 		UPDATE bbsm_board SET boardTitle=#{boardTitle}, boardContent=#{boardContent} WHERE boardNo=#{boardNo}
 	</update>
 	
+	<!-- 게시물 조회수 증가  -->
+	<update id="viewsCnt">
+		UPDATE bbsm_board SET boardView=boardView+1 WHERE boardNo=#{boardNo}
+	</update>
+	<!-- 게시물 추천수 증가  -->
+	<update id="updateReco">
+		UPDATE bbsm_board SET boardReco=boardReco+1 WHERE boardNo=#{boardNo}
+	</update>
 	<!-- 게시물 삭제. -->
 	<delete id="deleteBoard">
 		DELETE FROM bbsm_board WHERE boardNo=#{boardNo}

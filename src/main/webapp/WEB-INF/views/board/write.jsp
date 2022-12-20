@@ -392,6 +392,10 @@
 					            <textarea class="form-control boardContent" id="boardContent" name="boardContent" type="text" placeholder="내용 " style="height: 10rem;" data-sb-validations="required"></textarea>
 					            <span id="checkContent"></span> 
 					        </div>
+					        <div class="uploadDiv">
+					        	<input type="file" name="fileUpload" multiple>
+					        	<input type="button" class="btn btn-secondary" id="uploadButton" value="파일첨부 ">
+					        </div>
 					        <div class="d-grid">
 					            <input class="btn btn-primary btn-lg" id="submitButton" type="button" value="글쓰기" onclick="javascript:sendIt();">
 					        </div>
@@ -468,7 +472,7 @@
 		CKEDITOR.replace( 'boardContent', { //해당 이름으로 된 textarea에 에디터를 적용
 	       width:'100%',
 	       height:'400px',
-	       filebrowserUploadUrl:  "/board/fileUpload" //컨트롤러와 연결(!!!!!!!!!!!!!!!!나중에 수정하기!!!!!!!!!!!!)
+	       filebrowserUploadUrl:  "/board/imgUpload"
 	    });
 	</script>
 

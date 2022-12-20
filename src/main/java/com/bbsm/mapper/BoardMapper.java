@@ -20,4 +20,10 @@ public interface BoardMapper {
 	public boolean deleteBoard(long boardNo);
 	//게시물 작성하기
 	public boolean write(BoardDTO board);
+	//게시물 조회수 증가 
+	public boolean viewsCnt(long boardNo);
+	//게시물 추천수 증가	
+	public int updateReco(long boardNo);
+	//게시물 추천수 가져오기
+	public int getReco(long boardNo);
 }

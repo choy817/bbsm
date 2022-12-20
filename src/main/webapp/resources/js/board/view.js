@@ -11,3 +11,25 @@ var actionForm=$("#actionForm");
         
 			
 	}
+
+// $(document).ready(function(){
+// 	$(".recoBtn").on("click",function () {
+// 		$.ajax({
+// 			type:"POST",
+// 			url :"/board/recoCnt",
+// 			dataType:"json",
+// 			data: boardNo,
+// 			success:function(data){
+// 				if(data==0){
+// 					console.log("추천 실패");
+// 				}else{
+// 					console.log("추천 완료");
+// 					location.reload();
+// 				}
+// 			}
+		
+// 		});
+// 	  });
+// 	});
+
+	
