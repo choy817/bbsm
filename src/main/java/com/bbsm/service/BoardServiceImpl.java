@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bbsm.domain.BoardDTO;
 import com.bbsm.domain.Criteria;
+import com.bbsm.domain.MapDTO;
 import com.bbsm.mapper.BoardMapper;
 
 import lombok.Setter;
@@ -73,5 +74,9 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int getReco(long boardNo) {
 		return boardMapper.getReco(boardNo);
+	}
+	@Override
+	public List<MapDTO> getMapList() {
+		return boardMapper.getMapList();
 	}
 }

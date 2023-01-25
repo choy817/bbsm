@@ -11,4 +11,5 @@ public class BoardDTO {
 	private long boardView;
 	private String boardDate;
 	private long boardReco;
+	private String cate;
 }

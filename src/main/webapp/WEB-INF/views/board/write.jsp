@@ -383,6 +383,11 @@
                     <!-- write template -->  
                     <div class="container px-5 my-5">
 					    <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="post">
+					    	<select id="cate" name="cate">
+					    		<option value="=======" selected>카테고리 선택 </option>
+					    		<option value="자유게시판 ">자유게시판 </option>
+					    		<option value="익명게시판 ">익명게시판 </option>
+					    	</select>
 					    	<input type="hidden" id="boardWriter" name="boardWriter" value="${sessionScope.user.userName }">
 					        <div class="form-floating mb-3">
 					            <input class="form-control boardTitle" id="boardTitle" name="boardTitle" type="text" placeholder="제목 " data-sb-validations="required" />

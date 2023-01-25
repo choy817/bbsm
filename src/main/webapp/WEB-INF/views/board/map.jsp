@@ -136,9 +136,9 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="/board/list">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>자유게시판 </span></a>
             </li>
 
             <!-- Divider -->
@@ -366,49 +366,26 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-			
+
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
-                     
-                     <!-- DataTales Example -->
+<!--                     <h1 class="h3 mb-2 text-gray-800">자유게시판 </h1>
+ -->                    <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h4 class="m-0 font-weight-bold text-primary">자유게시판 </h4>
                         </div>
                         <div class="card-body">
-          
-                    <!-- write template -->  
-                    <div class="container px-5 my-5">
-					    <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="/board/modify" method="post">
-					    	<select id="cate" name="cate">
-					    		<option value="=======" selected>카테고리 선택 </option>
-					    		<option value="자유게시판 ">자유게시판 </option>
-					    		<option value="익명게시판 ">익명게시판 </option>
-					    	</select>
-					    	<input type="hidden" name="pageNum" value="${cri.pageNum }">
-					    	<input type="hidden" name="amount" value="${cri.amount }">
-					    	<input type="hidden" name="keyword" value="${cri.keyword }">
-					    	<input type="hidden" name="type" value="${cri.type }">
-					    	<input type="hidden" name="boardNo" value="${board.boardNo }">
-					        <div class="form-floating mb-3">
-					            <input class="form-control" id="newField3" type="text" name="boardTitle" value="${board.boardTitle }" data-sb-validations="required" />
-					            <div class="invalid-feedback" data-sb-feedback="newField3:required">제목을 입력해 주세요.</div>
-					        </div>
-					        <div class="form-floating mb-3">
-					            <textarea class="form-control" id="message" name="boardContent" style="height: 10rem;" data-sb-validations="required">${board.boardContent }</textarea>
-					            <div class="invalid-feedback" data-sb-feedback="message:required">내용을 입력해 주세요.</div>
-					        </div>
-					        <div class="d-grid">
-					            <button class="btn btn-primary btn-lg " id="submitButton" type="submit">수정 </button>
-					            <button class="btn btn-secondary btn-lg " id="submitButton" type="button" onclick="location.href='/board/list${cri.getListLink()}'">목록 </button>
-					        </div>
-					    </form>
-					</div>
-				</div>
-      			</div>
+                        	<div class="row">
+                        			<div id="map" style="width:100%;height:550px;"></div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
             </div>
             <!-- End of Main Content -->
 
@@ -462,17 +439,92 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
+    
+	
 
     <!-- Page level plugins -->
-    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+   <!--  <script src="/vendor/datatables/jquery.dataTables.min.js"></script>-->
+  <!--  <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
 
     <!-- Page level custom scripts -->
-    <script src="/js/demo/datatables-demo.js"></script>
-    
-    <!-- write template scripts -->
-	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+   <!--  <script src="/js/demo/datatables-demo.js"></script>-->
 
 </body>
 
+    <%-- 카카오 지도 --%>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9883db2987ceaa51248d3f5479f36ce7"></script>
+	<script>
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+	    mapOption = { 
+	        center: new kakao.maps.LatLng(37.567004410019344, 126.9786974837311), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };
+	
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	 
+	// 마커를 표시할 위치와 title 객체 배열입니다 	
+	
+	var positions = [
+	    {
+	        title: '카카오', 
+	        latlng: new kakao.maps.LatLng(33.450705, 126.570677)
+	    },
+	    {
+	        title: '생태연못', 
+	        latlng: new kakao.maps.LatLng(33.450936, 126.569477)
+	    },
+	    {
+	        title: '텃밭', 
+	        latlng: new kakao.maps.LatLng(33.450879, 126.569940)
+	    },
+	    {
+	        title: '근린공원',
+	        latlng: new kakao.maps.LatLng(33.451393, 126.570738)
+	    }
+	];
+
+	// 마커 이미지의 이미지 주소입니다
+	var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+	var mapList=JSON.parse('${map}');
+	var longiArr = new Array();
+	var latiArr = new Array();
+	var storeArr= new Array();
+	
+	
+	for (var k in mapList){
+		var obj=mapList[k];
+		var longitude=obj.longitude;
+		var latitude=obj.latitude;
+		var storeList=obj.storeName;
+		
+		longiArr.push(longitude);
+		latiArr.push(latitude);
+		storeArr.push(storeList);
+		
+		
+	}
+	
+	console.log(longiArr);
+	console.log(latiArr);
+	console.log(storeArr);
+	    
+	for (var i = 0; i < mapList.length; i ++) {
+	    
+	    // 마커 이미지의 이미지 크기 입니다
+	    var imageSize = new kakao.maps.Size(24, 35); 
+	    
+	    // 마커 이미지를 생성합니다    
+	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+	    
+	    // 마커를 생성합니다
+		    var marker = new kakao.maps.Marker({
+		        map: map, // 마커를 표시할 지도
+		        position: new kakao.maps.LatLng(longiArr[i], latiArr[i]), // 마커를 표시할 위치
+		        title : storeArr[i], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+		        image : markerImage // 마커 이미지 
+		    });
+	}
+	console.log(marker); 
+	</script>
+	
 </html>

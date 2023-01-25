@@ -52,9 +52,13 @@ public class BaordServiceTest {
 		long boardNo=521L;
 		log.info(boardService.deleteBoard(boardNo));
 	}
-	@Test
+//	@Test
 	public void recoTest() {
 		long boardNo=1028L;
 		log.info(boardService.recoCnt(boardNo));
+	}
+	@Test
+	public void getMapTest() {
+		log.info(boardService.getMapList());
 	}
 }

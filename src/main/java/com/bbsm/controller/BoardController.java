@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,8 +40,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.bbsm.domain.BoardDTO;
 import com.bbsm.domain.Criteria;
 import com.bbsm.domain.FileDTO;
+import com.bbsm.domain.MapDTO;
 import com.bbsm.domain.PageDTO;
 import com.bbsm.service.BoardService;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import lombok.Setter;
@@ -110,11 +116,32 @@ public class BoardController {
 		return "redirect:/board/list"+cri.getListLink();
 	}
 	
+	@GetMapping("/map")
+	public void map(Model model) {
+		log.info("Controller ==============> boardMap");
+		List<MapDTO> mapList=new ArrayList<MapDTO>();
+		mapList=boardService.getMapList();
+//		JSONArray array=new JSONArray();
+		String array=new Gson().toJson(mapList);
+//		for (int i = 0; i < mapList.size(); i++) {
+//			JSONObject json=new JSONObject();
+//			json.put("mapList", mapList);
+//		}
+//		log.info("mapList : " +mapList );
+//		array.add(mapList);
+		log.info("array : "+array);
+		model.addAttribute("map", array);
+		
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/recoCnt", method = RequestMethod.POST, produces = "application/json")
 	public int recoCnt(@RequestBody long boardNo) {
 		log.info("Controller ==============> recoCnt........."+boardNo);
 		int recoResult=boardService.recoCnt(boardNo);
+		if(recoResult!=0) {
+			log.info("추천성공~");
+		}
 		return recoResult;
 	}
 	

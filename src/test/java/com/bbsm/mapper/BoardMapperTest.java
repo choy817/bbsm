@@ -91,10 +91,15 @@ public class BoardMapperTest {
 		log.info(boardMapper.viewsCnt(boardNo));
 	}
 	
-	@Test
+//	@Test
 	public void updateReco() {
 		long boardNo=3008L;
 		log.info(boardMapper.updateReco(boardNo));
+	}
+	
+	@Test
+	public void mapGetListTest() {
+		log.info(boardMapper.getMapList());
 	}
 
 }

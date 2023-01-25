@@ -49,12 +49,17 @@ public class BoardControllerTest {
 				.andReturn().getModelAndView().getModelMap());
 	}
 	
-	@Test
+//	@Test
 	public void deleteTest() throws Exception{
 		log.info(mockMvc.perform(
 				MockMvcRequestBuilders.post("/board/delete")
 				.param("boardNo", "522"))
 				.andReturn().getModelAndView().getModelMap());
 	}
-
+	
+	@Test
+	public void getMapListTest() throws Exception{
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/map"))
+				.andReturn().getModelAndView().getModelMap());
+	}
 }

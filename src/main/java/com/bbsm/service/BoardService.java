@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bbsm.domain.BoardDTO;
 import com.bbsm.domain.Criteria;
+import com.bbsm.domain.MapDTO;
 
 public interface BoardService {
 	//리스트 가져오기 
@@ -26,4 +27,6 @@ public interface BoardService {
 	public int recoCnt(long boardNo);
 	//게시글 추천수 가져오기	
 	public int getReco(long boardNo);
+	//지도 리스트 가져오기 
+	public List<MapDTO> getMapList();
 }
