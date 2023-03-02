@@ -1,5 +1,7 @@
 package com.bbsm.domain;
 
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.queryParam;
+
 import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.Getter;
@@ -13,6 +15,7 @@ public class Criteria {
 	
 	String type;
 	String keyword;
+	String cate;
 	
 	public Criteria() {
 		this(1,10);	//기본값 1페이지 , 게시물 10개로 지정 
@@ -29,7 +32,8 @@ public class Criteria {
 				.queryParam("pageNum", this.pageNum)
 				.queryParam("amount", this.amount)
 				.queryParam("type", this.type)
-				.queryParam("keyword", this.keyword);
+				.queryParam("keyword", this.keyword)
+				.queryParam("cate", this.cate);
 		
 		return builder.toUriString();
 	}

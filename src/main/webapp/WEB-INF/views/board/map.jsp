@@ -502,7 +502,7 @@
 		var marker = new kakao.maps.Marker({
 		    //map: map, // 마커를 표시할 지도
 		   	//position: new kakao.maps.LatLng(longiArr[i], latiArr[i]), // 마커를 표시할 위치
-		   	position: new kakao.maps.LatLng(mapArr[index].longitude, mapArr[index].latitude), // 마커를 표시할 위치
+		   	position: new kakao.maps.LatLng(mapArr[index].latitude, mapArr[index].longitude), // 마커를 표시할 위치
 		    //title : storeArr[i], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
 		    image : markerImage, // 마커 이미지
 		    clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
@@ -544,7 +544,7 @@
 		
 		var ellipsis = document.createElement('div');
 		ellipsis.classList.add('ellipsis');
-		ellipsis.appendChild(document.createTextNode("제주특별자치도 제주시 첨단로 242"));  
+		ellipsis.appendChild(document.createTextNode(mapArr[index].address));  
 		desc.appendChild(ellipsis);
 		
 		

@@ -385,8 +385,8 @@
 					    <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="/board/modify" method="post">
 					    	<select id="cate" name="cate">
 					    		<option value="=======" selected>카테고리 선택 </option>
-					    		<option value="자유게시판 ">자유게시판 </option>
-					    		<option value="익명게시판 ">익명게시판 </option>
+					    		<option value="notice">공지사항</option>
+					    		<option value="free">자유게시판 </option>
 					    	</select>
 					    	<input type="hidden" name="pageNum" value="${cri.pageNum }">
 					    	<input type="hidden" name="amount" value="${cri.amount }">

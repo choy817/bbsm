@@ -53,8 +53,8 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	//게시글 삭제
-	public boolean deleteBoard(long boardNo) {
-		return boardMapper.deleteBoard(boardNo);
+	public boolean deleteBoard(BoardDTO board) {
+		return boardMapper.deleteBoard(board);
 	}
 
 	@Override

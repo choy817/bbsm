@@ -1,5 +1,7 @@
 package com.bbsm.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,8 +61,10 @@ public class BoardController {
 	@Setter(onMethod_ = @Autowired)
 	BoardService boardService;
 	
-	@GetMapping("/list")
-	public void list(Criteria cri,Model model) {
+	@GetMapping("/{cate}")
+//	@RequestMapping(value = {"/list", "/notice"}, method=RequestMethod.GET)
+	public void list(Criteria cri,Model model, BoardDTO board, HttpServletRequest request, @PathVariable(required = false) String cate) {
+//	public void list(Criteria cri,Model model, BoardDTO board, HttpServletRequest request) {
 		log.info("Controller ==============> boardList........."+cri);
 		log.info(model.addAttribute("list",boardService.getList(cri)));
 		model.addAttribute("pageMaker",new PageDTO(boardService.getTotal(cri), cri));
@@ -72,10 +78,13 @@ public class BoardController {
 	@PostMapping("/write")
 	public String write(BoardDTO board) {
 		log.info("Controller ==============> boardWrite.........(Post)"+board);
-		
-		
 		if(boardService.write(board)){
-			return "redirect:/board/list";
+			log.info(board.getCate());
+			if(board.getCate().equals("free")) {
+				return "redirect:/board/free";
+			}else if(board.getCate().equals("notice")){
+				return "redirect:/board/notice";
+			}
 	}
 	return "/board/write";
 	}
@@ -100,20 +109,25 @@ public class BoardController {
 		if(boardService.modifyBoard(board)) {
 			log.info("게시글 수정 성공.......");
 			rttr.addFlashAttribute("msg", "modSuccess");
+			if(board.getCate().equals("free")) {
+				return "redirect:/board/free"+cri.getListLink();
+			}
 		}
-		
-		return "redirect:/board/list"+cri.getListLink();
+		return "redirect:/board/notice"+cri.getListLink();
 	}
+		
 	
 	@PostMapping("/delete")
-	public String delete(long boardNo,RedirectAttributes rttr, Criteria cri) {
-		log.info("Controller ==============> boardDelete........."+boardNo);
-		if(boardService.deleteBoard(boardNo)) {
+	public String delete(BoardDTO board,RedirectAttributes rttr, Criteria cri) {
+		log.info("Controller ==============> boardDelete........."+board);
+		if(boardService.deleteBoard(board)) {
 			log.info("게시글 삭제 성공.......");
 			rttr.addFlashAttribute("msg", "delSuccess");
+			if(board.getCate().equals("free")) {
+				return "redirect:/board/free"+cri.getListLink();
+			}
 		}
-		
-		return "redirect:/board/list"+cri.getListLink();
+		return "redirect:/board/notice"+cri.getListLink();
 	}
 	
 	@GetMapping("/map")

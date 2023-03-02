@@ -18,7 +18,7 @@ public interface BoardService {
 	//게시글 수정
 	public boolean modifyBoard(BoardDTO board);
 	//게시글 삭제
-	public boolean deleteBoard(long boardNo);
+	public boolean deleteBoard(BoardDTO board);
 	//게시글 작성 
 	public boolean write(BoardDTO board);
 	//게시글 조회수 증가

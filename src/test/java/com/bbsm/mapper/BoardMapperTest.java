@@ -1,6 +1,9 @@
 package com.bbsm.mapper;
 
+import java.util.Arrays;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,14 +29,22 @@ public class BoardMapperTest {
 	
 //	@Test
 	public void getListTest() {
+		String cate="notice";
 		log.info(boardMapper.getList());
 	}
 //	@Test
+	public void getTotalTest() {
+		Criteria cri=new Criteria();
+		String cate="notice";
+		log.info(boardMapper.getTotal(cri));
+	}
+	@Test
 	public void getListWithPagingTest() {
 		Criteria cri=new Criteria();
 		
 		cri.setPageNum(1);
 		cri.setAmount(10);
+		cri.setCate("free");
 		
 		List<BoardDTO> list=boardMapper.getListWithPaging(cri);
 		
@@ -49,17 +60,21 @@ public class BoardMapperTest {
 //	@Test
 	public void modifyTest() {
 		BoardDTO board=new BoardDTO();
-		board.setBoardNo(1L);
+		board.setBoardNo(3088L);
 		board.setBoardTitle("수정 테스트!!!!");
 		board.setBoardContent("수정되어라 ");
+		board.setCate("free");
 		log.info(boardMapper.modifyBoard(board));
 	}
 	
 //	@Test
 	public void deleteTest() {
-		long boardNo=520L;
-		log.info(boardMapper.deleteBoard(boardNo));
+		BoardDTO board=new BoardDTO();
+		board.setBoardNo(3092L);
+		board.setCate("free");
+		log.info(boardMapper.deleteBoard(board));
 	}
+	
 	
 //	@Test
 	public void searchTest() {
@@ -67,9 +82,11 @@ public class BoardMapperTest {
 		cri.setKeyword("modify");
 		cri.setType("C");
 		
-		List<BoardDTO> list=boardMapper.getListWithPaging(cri);
+		String cate = "notice";
 		
-		list.forEach(board -> log.info(board));
+//		List<BoardDTO> list=boardMapper.getListWithPaging(cri);
+//		
+//		list.forEach(board -> log.info(board));
 		
 	}
 //	@Test
@@ -78,7 +95,7 @@ public class BoardMapperTest {
 		board.setBoardTitle("write test");
 		board.setBoardWriter("banana");
 		board.setBoardContent("test");
-		board.setBoardDate("2020-11-22");
+		board.setCate("free");
 		boardMapper.write(board);
 	}
 	
@@ -97,7 +114,7 @@ public class BoardMapperTest {
 		log.info(boardMapper.updateReco(boardNo));
 	}
 	
-	@Test
+//	@Test
 	public void mapGetListTest() {
 		log.info(boardMapper.getMapList());
 	}

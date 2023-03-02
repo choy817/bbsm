@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>공지사항 </title>
 
     <!-- Custom fonts for this template -->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -49,8 +49,8 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
+            <li class="nav-item active">
+                <a class="nav-link" href="/index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -58,89 +58,54 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="/board/map">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>지도 보기 </span></a>
             </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
+			
+			<!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="/board/notice">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>공지 </span></a>
             </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
+            
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="/board/free">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>자유게시판 </span></a>
+            </li>
+            
+            
+            
+            <c:choose>
+               <c:when test="${sessionScope.user ne null}">
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                    <span>${sessionScope.user.userName}</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <a class="collapse-item" href="/user/logout">로그아웃 </a>
+                        <a class="collapse-item" href="/user/modifyUser">Modify</a>
                     </div>
                 </div>
             </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="/board/list">
+                </c:when>
+                <c:otherwise>
+                	<li class="nav-item">
+                <a class="nav-link" href="/user/login">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>자유게시판 </span></a>
+                    <span>로그인 </span></a>
             </li>
-
+                </c:otherwise>
+            </c:choose>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -372,13 +337,13 @@
  -->                    <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h4 class="m-0 font-weight-bold text-primary">자유게시판 </h4>
+                            <h4 class="m-0 font-weight-bold text-primary">공지사항 </h4>
                         </div>
                         <div class="card-body">
                         	<div class="row">
                         		<div class="col-sm-12 col-md-6">
                         			<div id="dataTables_filter" class="dataTables_filter">
-                        				<form action="/board/list" id="searchForm" method="get">
+                        				<form action="/board/notice" id="searchForm" method="get">
                         					<label>
                                 				<select name="type" style="border: 1px solid #e3e6f0">
                                 					<option ${pageMaker.cri.type == null? 'selected':'' } value="">검색기준 </option>
@@ -392,6 +357,7 @@
                                 				<input type="text" name="keyword" value="${pageMaker.cri.keyword }" style="border: 1px solid #e3e6f0">
                                 				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
                                 				<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+                                				<input type="hidden" name="cate" value="notice">
                                 				<a href="#" class="btn btn-primary btn-icon-split">검색 </a>
                            					</label>
                                 		</form>
@@ -459,11 +425,12 @@
                                 			</li>
                                 		</c:if>
                                 	</ul>
-                                	<form id="actionForm" action="/board/list" method="get">
+                                	<form id="actionForm" action="/board/notice" method="get">
                                 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
                                 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
                                 		<input type="hidden" name="type" value="${pageMaker.cri.type }">
                                 		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+                                		<input type="hidden" name="cate" value="notice">
                                 	</form>
                                 	<%-- 다른 페이지로 이동 한 후 다시 목록 돌아올 때 이전 페이지 번호를 기억  --%>
                                 	<form id="pageForm" action="">
@@ -471,6 +438,7 @@
                                 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
                                 		<input type="hidden" name="type" value="${pageMaker.cri.type }">
                                 		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+                                		<input type="hidden" name="cate" value="notice">
                                 	</form>
                                 </div>
                                 </div>

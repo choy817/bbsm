@@ -24,12 +24,12 @@ public class BaordServiceTest {
 	
 //	@Test
 	public void getListTest() {
-		log.info(boardService.getList());
+//		log.info(boardService.getList());
 	}
 	
 //	@Test
 	public void getListWithPagingTest() {
-		boardService.getList(new Criteria(1, 10)).forEach(board -> log.info(board));;
+//		boardService.getList(new Criteria(1, 10)).forEach(board -> log.info(board));;
 	}
 	
 //	@Test
@@ -50,7 +50,7 @@ public class BaordServiceTest {
 //	@Test
 	public void deleteTest() {
 		long boardNo=521L;
-		log.info(boardService.deleteBoard(boardNo));
+//		log.info(boardService.deleteBoard(boardNo));
 	}
 //	@Test
 	public void recoTest() {

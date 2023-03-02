@@ -386,6 +386,8 @@
 					    		<input type="hidden" name="keyword" value="${cri.keyword }">
 					    		<input type="hidden" name="type" value="${cri.type }">
 					    		<input type="hidden" name="boardNo" value="${board.boardNo }">
+					    		<input type="hidden" name="cate" value="${board.cate }">
+					    		
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <tr>
                                             <th style="border-right:none" colspan="8">${board.boardTitle } </th>

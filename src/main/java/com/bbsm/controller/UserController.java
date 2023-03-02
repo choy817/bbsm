@@ -166,6 +166,12 @@ public class UserController {
 		
 	}
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("user");
+		return "redirect:/index";
+	}
+	
 	//회원정보 수정
 	@GetMapping("/modifyUser")
 	public void userModify() {

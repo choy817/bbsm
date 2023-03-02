@@ -2,6 +2,8 @@ package com.bbsm.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.bbsm.domain.BoardDTO;
 import com.bbsm.domain.Criteria;
 import com.bbsm.domain.MapDTO;
@@ -18,7 +20,7 @@ public interface BoardMapper {
 	//게시물 수정하기
 	public boolean modifyBoard(BoardDTO board);
 	//게시물 삭제하기
-	public boolean deleteBoard(long boardNo);
+	public boolean deleteBoard(BoardDTO board);
 	//게시물 작성하기
 	public boolean write(BoardDTO board);
 	//게시물 조회수 증가 

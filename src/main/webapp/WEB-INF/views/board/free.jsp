@@ -3,17 +3,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
-	<script type="text/javascript" src="../resources/ckeditor/ckeditor.js"></script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>글쓰기 </title>
+    <title>SB Admin 2 - Tables</title>
 
     <!-- Custom fonts for this template -->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -49,8 +49,8 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
+            <li class="nav-item active">
+                <a class="nav-link" href="/index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -58,89 +58,54 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="/board/map">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>지도 보기 </span></a>
             </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
+			
+			<!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="/board/notice">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>공지 </span></a>
             </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
+            
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="/board/free">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>자유게시판 </span></a>
+            </li>
+            
+            
+            
+            <c:choose>
+               <c:when test="${sessionScope.user ne null}">
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                    <span>${sessionScope.user.userName}</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <a class="collapse-item" href="/user/logout">로그아웃 </a>
+                        <a class="collapse-item" href="/user/modifyUser">Modify</a>
                     </div>
                 </div>
             </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                </c:when>
+                <c:otherwise>
+                	<li class="nav-item">
+                <a class="nav-link" href="/user/login">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>로그인 </span></a>
             </li>
-
+                </c:otherwise>
+            </c:choose>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -366,48 +331,126 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-			
+
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
-                     
-                     <!-- DataTales Example -->
+<!--                     <h1 class="h3 mb-2 text-gray-800">자유게시판 </h1>
+ -->                    <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h4 class="m-0 font-weight-bold text-primary">자유게시판 </h4>
                         </div>
                         <div class="card-body">
-          
-                    <!-- write template -->  
-                    <div class="container px-5 my-5">
-					    <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="post">
-					    	<select id="cate" name="cate">
-					    		<option value="=======" selected>카테고리 선택 </option>
-					    		<option value="notice">공지사항 </option>
-					    		<option value="free">자유게시판 </option>
-					    	</select>
-					    	<input type="hidden" id="boardWriter" name="boardWriter" value="${sessionScope.user.userName }">
-					        <div class="form-floating mb-3">
-					            <input class="form-control boardTitle" id="boardTitle" name="boardTitle" type="text" placeholder="제목 " data-sb-validations="required" />
-					            <span id="checkTitle"></span> 
-					        </div>
-					        <div class="form-floating mb-3">
-					            <textarea class="form-control boardContent" id="boardContent" name="boardContent" type="text" placeholder="내용 " style="height: 10rem;" data-sb-validations="required"></textarea>
-					            <span id="checkContent"></span> 
-					        </div>
-					        <div class="uploadDiv">
-					        	<input type="file" name="fileUpload" multiple>
-					        	<input type="button" class="btn btn-secondary" id="uploadButton" value="파일첨부 ">
-					        </div>
-					        <div class="d-grid">
-					            <input class="btn btn-primary btn-lg" id="submitButton" type="button" value="글쓰기" onclick="javascript:sendIt();">
-					        </div>
-					    </form>
-					</div>
-				</div>
-      			</div>
+                        	<div class="row">
+                        		<div class="col-sm-12 col-md-6">
+                        			<div id="dataTables_filter" class="dataTables_filter">
+                        				<form action="/board/free" id="searchForm" method="get">
+                        					<label>
+                                				<select name="type" style="border: 1px solid #e3e6f0">
+                                					<option ${pageMaker.cri.type == null? 'selected':'' } value="">검색기준 </option>
+                                					<option ${pageMaker.cri.type == 'T'? 'selected':'' } value="T">제목 </option>
+                                					<option ${pageMaker.cri.type == 'C'? 'selected':'' } value="C">내용 </option>
+                                					<option ${pageMaker.cri.type == 'W'? 'selected':'' } value="W">작성자 </option>
+                                					<option ${pageMaker.cri.type == 'TC'? 'selected':'' } value="TC">제목 또는 내용 </option>
+                                					<option ${pageMaker.cri.type == 'TW'? 'selected':'' } value="TW">제목 또는 작성자 </option>
+                                					<option ${pageMaker.cri.type == 'TCW'? 'selected':'' } value="TCW">제목 또는 내용 또는 작성자 </option>
+                                				</select>
+                                				<input type="text" name="keyword" value="${pageMaker.cri.keyword }" style="border: 1px solid #e3e6f0">
+                                				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+                                				<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+                                				<input type="hidden" name="cate" value="${pageMaker.cri.cate }">
+                                				
+                                				<a href="#" class="btn btn-primary btn-icon-split">검색 </a>
+                           					</label>
+                                		</form>
+                                	</div>
+                                </div>
+                               	<div class="col-sm-12 col-md-6">
+                               		<a href="/board/write" class="btn btn-primary btn-lg" style="float: right;margin-bottom: 8px;">글쓰기 </a>
+                               	</div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>글번호 </th>
+                                            <th>글제목 </th>
+                                            <th>작성자 </th>
+                                            <th>조회수 </th>
+                                            <th>작성일 </th>
+                                            <th>추천수 </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+	                                    <c:forEach items="${list }" var="board">
+                                    		<tr>
+	                                    		<td>${board.boardNo}</td>
+	                                    		<td><a class="move" href="${board.boardNo }">${board.boardTitle}</a></td>
+	                                    		<td>${board.boardWriter}</td>
+	                                    		<td>${board.boardView}</td>
+	                                    		<td>${board.boardDate}</td>
+	                                    		<td>${board.boardReco}</td>
+                                    		</tr>	
+	                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                                <div class="row"> 
+                                <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                	<ul class="pagination">
+                                		<%-- 이전 페이지  --%>
+                                		<c:if test="${pageMaker.prev }">
+                                			<li class="paginate_button page-item" id="dataTable_previous">
+                                				<a class="page-link" aria-controls="dataTable" data-dt-idx="${pageMaker.startPage-1 }" href="${pageMaker.startPage-1 }">&laquo;</a>
+                                			</li>
+                                		</c:if>
+                                		<%-- 현재 페이지  --%>
+                                		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+                                			<c:choose>
+                                				<c:when test="${pageMaker.cri.pageNum == num }">
+                                					<li class="paginate_button page-item active">
+                                					<a class="page-link" href="#" aria-controls="dataTable" data-dt-idx="${num }" tabindex="0">${num }</a>
+                                					</li>
+                                				</c:when>
+                                				<c:otherwise>
+                                					<li class="paginate_button page-item ">
+                                						<a class="page-link" aria-controls="dataTable" data-dt-idx="${num }" tabindex="0" href="${num }">${num }</a>
+                                					</li>
+                                				</c:otherwise>
+                                			</c:choose>
+                                		</c:forEach>
+                                		
+                                		<%-- 다음 페이지  --%>
+                                		<c:if test="${pageMaker.next }">
+                                			<li class="paginate_button page-item next" id="dataTable_next">
+                                				<a class="page-link" href="${pageMaker.endPage+1 }">&raquo;</a>
+                                			</li>
+                                		</c:if>
+                                	</ul>
+                                	<form id="actionForm" action="/board/free" method="get">
+                                		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+                                		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+                                		<input type="hidden" name="type" value="${pageMaker.cri.type }">
+                                		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+                                		<input type="hidden" name="cate" value="${pageMaker.cri.cate }">
+                                	</form>
+                                	<%-- 다른 페이지로 이동 한 후 다시 목록 돌아올 때 이전 페이지 번호를 기억  --%>
+                                	<form id="pageForm" action="">
+                                		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+                                		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+                                		<input type="hidden" name="type" value="${pageMaker.cri.type }">
+                                		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+                                		<input type="hidden" name="cate" value="${pageMaker.cri.cate }">
+                                	</form>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
             </div>
             <!-- End of Main Content -->
 
@@ -461,25 +504,27 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
+    
+    <script type="text/javascript" src="/js/board/boardList.js"></script>
+    
+    <script type="text/javascript">
+	const msg="${msg}"
+		if(msg=="modSuccess"){
+			alert("게시글 수정이 완료되었습니다.")
+		}else if(msg=="delSuccess"){
+			alert("게시글 삭제가 완료되었습니다.")
+		}
+	
+	console.log("${board.cate}")
+	</script>
+    <script type="text/javascript">console.log("${pageMaker.endPage}")</script>
 
     <!-- Page level plugins -->
-    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+   <!--  <script src="/vendor/datatables/jquery.dataTables.min.js"></script>-->
+  <!--  <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
 
     <!-- Page level custom scripts -->
-    <script src="/js/demo/datatables-demo.js"></script>
-    
-    <!-- write template scripts -->
-	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-	<script src="/js/board/write.js"></script>
-	
-	<script type="text/javascript">
-		CKEDITOR.replace( 'boardContent', { //해당 이름으로 된 textarea에 에디터를 적용
-	       width:'100%',
-	       height:'400px',
-	       filebrowserUploadUrl:  "/board/imgUpload"
-	    });
-	</script>
+   <!--  <script src="/js/demo/datatables-demo.js"></script>-->
 
 </body>
 

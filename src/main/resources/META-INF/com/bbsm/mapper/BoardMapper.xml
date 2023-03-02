@@ -3,6 +3,8 @@
 <!-- 인터페이스가 있는 경로를 적어서 Mapper 인터페이스와 연결한다. -->
 <mapper namespace="com.bbsm.mapper.BoardMapper">
 	<sql id="criteria">
+    <!-- prefixOverrides는 맨 앞이 OR로 시작 될경우 제거해주고 시작한다. 밑에서 중간에 OR을 넣어주기 위함 즉 OR title like ~~ OR content like 으로 시작됨 -->
+	<!-- collection이 typeArr인 이유는 마이바티스는 빈이아닌 get/set 메서드 이름을 보고 판단하기 때문에 Criteria에서 getTypeArr를 보고 typeArr로 판단한다. -->
 		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
 			<foreach collection="typeArr" item="type">
 				<trim prefix="OR">
@@ -30,26 +32,27 @@
 	</select>
 	<!-- 페이징처리된 목록 가져오기  -->
 	<select id="getListWithPaging" resultType="com.bbsm.domain.BoardDTO">
-		<![CDATA[
-		SELECT * 
-		FROM (
-			SELECT /*+INDEX_DESC(tbl_bbsm boardNo)*/ 
-				rownum rn, boardNo, boardTitle, boardContent, boardWriter, boardView, boardDate, boardReco
-		 	FROM bbsm_board 
-		 	WHERE 
-		]]>
-		<include refid="criteria"></include>
-		<![CDATA[
-		 	rownum <= #{pageNum} * #{amount}
-		 	)
-		WHERE rn>(#{pageNum}-1) * #{amount} 
-	]]>
+	 <![CDATA[
+	    SELECT * 
+	    FROM (
+	      	SELECT /*+INDEX_DESC(tbl_bbsm boardNo)*/ 
+	        	rownum rn, boardNo, boardTitle, boardContent, boardWriter, boardView, boardDate, boardReco, cate
+	      FROM bbsm_board 
+	      WHERE
+	  ]]>
+	     <include refid="criteria"></include>
+	  <![CDATA[
+	      rownum <= #{pageNum} * #{amount} 
+	      )
+	    WHERE rn>(#{pageNum}-1) * #{amount} AND cate =#{cate}
+	  ]]>
 	</select>
+
 	<!--전체 데이터 개수. -->
 	<select id="getTotal" resultType="int">
 		SELECT COUNT(*) FROM bbsm_board 
 		WHERE <include refid="criteria"></include>
-		boardNo > 0
+		boardNo > 0 AND cate =#{cate}
 	</select>
 	<!-- 게시글 상세보기. -->
 	<select id="read" resultType="com.bbsm.domain.BoardDTO">
@@ -77,7 +80,7 @@
 	
 	<!--게시물 수정. -->
 	<update id="modifyBoard">
-		UPDATE bbsm_board SET boardTitle=#{boardTitle}, boardContent=#{boardContent} WHERE boardNo=#{boardNo}
+		UPDATE bbsm_board SET boardTitle=#{boardTitle}, boardContent=#{boardContent} WHERE boardNo=#{boardNo} AND cate=#{cate}
 	</update>
 	
 	<!-- 게시물 조회수 증가  -->
@@ -90,7 +93,7 @@
 	</update>
 	<!-- 게시물 삭제. -->
 	<delete id="deleteBoard">
-		DELETE FROM bbsm_board WHERE boardNo=#{boardNo}
+		DELETE FROM bbsm_board WHERE boardNo=#{boardNo} AND cate=#{cate}
 	</delete>
 	
 </mapper>
