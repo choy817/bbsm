@@ -35,7 +35,7 @@
 	 <![CDATA[
 	    SELECT * 
 	    FROM (
-	      	SELECT /*+INDEX_DESC(tbl_bbsm boardNo)*/ 
+	      	SELECT /*+ INDEX_DESC(bbsm_board board_pk)*/ 
 	        	rownum rn, boardNo, boardTitle, boardContent, boardWriter, boardView, boardDate, boardReco, cate
 	      FROM bbsm_board 
 	      WHERE
@@ -75,7 +75,7 @@
 			SELECT board_seq.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO bbsm_board(boardNo, boardTitle, boardContent, boardWriter, boardView, boardDate, boardReco, cate) 
-		VALUES(#{boardNo}, #{boardTitle}, #{boardContent}, #{boardWriter}, #{boardView}, SYSDATE, #{boardReco}, #{cate})
+		VALUES(#{boardNo}, #{boardTitle}, #{boardContent}, #{boardWriter}, #{boardView}, CURRENT_DATE, #{boardReco}, #{cate})
 	</insert>
 	
 	<!--게시물 수정. -->
