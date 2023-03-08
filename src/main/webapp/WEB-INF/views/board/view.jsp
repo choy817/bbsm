@@ -425,9 +425,13 @@
                         </div>
                     </section>
                     <div class="button">
+                    	<c:choose>
+                    		<c:when test="${sessionScope.user ne null && (board.boardWriter == sessionScope.user.userId)}">
                     	<button type="button" class="btn btn-primary btn-lg" id="submitButton" onclick="location.href='/board/modify${cri.getListLink()}&boardNo=${board.boardNo }'">수정 </button>
                     	<button type="button" class="btn btn-secondary btn-lg" id="submitButton" onclick="javascript:deleteBoard();">삭제 </button>
-                    	<button type="button" class="btn btn-secondary btn-lg" id="submitButton" onclick="location.href='/board/list${cri.getListLink()}'">목록 </button>
+                    		</c:when>
+                    	</c:choose>
+                    	<button type="button" class="btn btn-secondary btn-lg backList" id="submitButton">목록 </button>
                     </div>
                     </div>
                     </form>
@@ -558,6 +562,7 @@
     		   console.log("list:"+list+","+"replyCnt:"+replyCnt);
     		   
     		   var str="";
+    		   var userId="${sessionScope.user.userId}";
     		   
     		   if(list==null || list.length==0){
     			   replyUL.html("댓글이 없습니다.");
@@ -568,11 +573,11 @@
 					str +="<p><strong>"+list[i].replyer+"</strong></p>";
 					str +="<p class='reply"+list[i].replyNo+"'>"+list[i].replyContent+"</p>";
 					str +="<div style='text-align:right;'>"+replyService.displayTime(list[i].modDate);
-					
-					str+="<br><a href='"+list[i].replyNo+"'class='modify'>수정</a>";
-					str+="<a href='"+list[i].replyNo+"' class='finish' style='display:none;'>수정 완료</a>";//댓글 작성 시간은 최종 수정시간이 기준 
-					str+="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='"+list[i].replyNo+"'class='remove'>삭제</a>";
-					
+					if(list[i].replyer==userId){
+						str	+="<br><a href='"+list[i].replyNo+"'class='modify'>수정</a>";
+						str	+="<a href='"+list[i].replyNo+"' class='finish' style='display:none;'>수정 완료</a>";//댓글 작성 시간은 최종 수정시간이 기준 
+						str	+="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='"+list[i].replyNo+"'class='remove'>삭제</a>";
+					}
 					str +="<div class='reply'></div><hr></li>"; 
     		   }
     		   replyUL.html(str);
@@ -632,7 +637,9 @@
     		   			showList(pageNum);
     	   })
        })
-	//추천
+       
+       
+	//게시글 추천버튼 눌렀을 때 
 	$(".recoBtn").on("click",function () {
 		console.log(boardNo);
 		$.ajax({
@@ -652,9 +659,22 @@
 		
 		});
 	  });
-       
+      //게시글 목록버튼 눌렀을때   	
+      $(".backList").on("click", function(){
+    	  let cate="${board.cate}";
+    	  console.log("cate : "+cate);
+    	  if(cate==="free"){
+    		  location.href="/board/free"+"${cri.getListLink()}"
+    	  }else if(cate==="notice"){
+    		  location.href="/board/notice"+"${cri.getListLink()}"
+    	  }
+      });
         
     });
+	
+	console.log("${sessionScope.user.userId==board.boardWriter}")
+	console.log("${sessionScope.user.userId}")
+	console.log("${board.boardWriter}")
 	
 	</script>
 	

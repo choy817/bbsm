@@ -7,7 +7,7 @@
 		<![CDATA[
 			SELECT ReplyNo, BoardNo, replyContent ,replyer, replyDate, modDate
 			FROM(
-				SELECT /*INDEX(bbsm_reply reply_idx) */
+				SELECT /*+ INDEX(bbsm_reply reply_idx) */
 					ROWNUM rn, replyNo, boardNo, replyContent, replyer, replyDate, modDate
 				FROM bbsm_reply
 				WHERE boardNo=#{boardNo}
@@ -35,7 +35,7 @@
 	
 	<!-- 댓글 수정  -->
 	<update id="updateReply">
-		UPDATE bbsm_reply SET replyContent=#{replyContent}, modDate=SYSDATE WHERE replyNo=#{replyNo}
+		UPDATE bbsm_reply SET replyContent=#{replyContent}, modDate=CURRENT_DATE WHERE replyNo=#{replyNo}
 	</update>
 	
 	<!-- 댓글 삭제 -->

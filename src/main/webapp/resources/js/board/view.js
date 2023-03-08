@@ -7,11 +7,8 @@ var actionForm=$("#actionForm");
 		}else{
 			actionForm.submit();
 		}
-
-        
 			
 	}
-
 // $(document).ready(function(){
 // 	$(".recoBtn").on("click",function () {
 // 		$.ajax({
