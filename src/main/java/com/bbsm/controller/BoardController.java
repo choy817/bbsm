@@ -71,8 +71,8 @@ public class BoardController {
 	}
 	
 	@GetMapping("/write")
-	public void write() {
-		log.info("Controller ==============> boardWrite.........(Get)");
+	public void write(@RequestParam("cate")String cate, Model model) {
+		log.info("Controller ==============> boardWrite.........(Get)"+cate);
 	}
 	
 	@PostMapping("/write")
@@ -97,8 +97,8 @@ public class BoardController {
 	}
 	
 	@GetMapping("/modify")
-	public void modify(@RequestParam("boardNo")long boardNo, @ModelAttribute("cri") Criteria cri, Model model) {
-		log.info("Controller ==============> boardModify.........(Get)");
+	public void modify(@RequestParam("boardNo")long boardNo, @RequestParam("cate")String cate,@ModelAttribute("cri") Criteria cri, Model model) {
+		log.info("Controller ==============> boardModify.........(Get)"+cate);
 		model.addAttribute("board",boardService.view(boardNo));
 	}
 	

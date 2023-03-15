@@ -46,6 +46,9 @@ $(document).ready(function(e){
 function sendIt(){
     const form=document.getElementById("contactForm");
 
+//    const serchParams=new URLSearchParams(location.search);
+//     alert(serchParams.get('cate'));
+
     console.log(form);
     
     if(form.boardTitle.value=="" || form.boardTitle.value==null){

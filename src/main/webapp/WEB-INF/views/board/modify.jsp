@@ -382,12 +382,12 @@
           
                     <!-- write template -->  
                     <div class="container px-5 my-5">
-					    <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="/board/modify" method="post">
-					    	<select id="cate" name="cate">
+					    <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="post">
+					    	<!-- <select id="cate" name="cate">
 					    		<option value="=======" selected>카테고리 선택 </option>
 					    		<option value="notice">공지사항</option>
 					    		<option value="free">자유게시판 </option>
-					    	</select>
+					    	</select> -->
 					    	<input type="hidden" name="pageNum" value="${cri.pageNum }">
 					    	<input type="hidden" name="amount" value="${cri.amount }">
 					    	<input type="hidden" name="keyword" value="${cri.keyword }">
@@ -402,7 +402,7 @@
 					            <div class="invalid-feedback" data-sb-feedback="message:required">내용을 입력해 주세요.</div>
 					        </div>
 					        <div class="d-grid">
-					            <button class="btn btn-primary btn-lg " id="submitButton" type="submit">수정 </button>
+					            <button class="btn btn-primary btn-lg " id="submitButton" type="button" onclick="javascript:sendIt();">수정 </button>
 					            <button class="btn btn-secondary btn-lg " id="submitButton" type="button" onclick="location.href='/board/list${cri.getListLink()}'">목록 </button>
 					        </div>
 					    </form>
@@ -469,6 +469,7 @@
 
     <!-- Page level custom scripts -->
     <script src="/js/demo/datatables-demo.js"></script>
+    <script src="/js/board/writeAndModify.js"></script>
     
     <!-- write template scripts -->
 	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>

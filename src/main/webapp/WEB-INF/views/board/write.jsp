@@ -383,11 +383,11 @@
                     <!-- write template -->  
                     <div class="container px-5 my-5">
 					    <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="post">
-					    	<select id="cate" name="cate">
-					    		<option value="=======" selected>카테고리 선택 </option>
+					    	<!-- <select id="cate" name="cate">
+					    		<option value="=======">카테고리 선택 </option>
 					    		<option value="notice">공지사항 </option>
 					    		<option value="free">자유게시판 </option>
-					    	</select>
+					    	</select> -->
 					    	<input type="hidden" id="boardWriter" name="boardWriter" value="${sessionScope.user.userName }">
 					        <div class="form-floating mb-3">
 					            <input class="form-control boardTitle" id="boardTitle" name="boardTitle" type="text" placeholder="제목 " data-sb-validations="required" />
@@ -471,7 +471,7 @@
     
     <!-- write template scripts -->
 	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-	<script src="/js/board/write.js"></script>
+	<script src="/js/board/writeAndModify.js"></script>
 	
 	<script type="text/javascript">
 		CKEDITOR.replace( 'boardContent', { //해당 이름으로 된 textarea에 에디터를 적용

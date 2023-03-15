@@ -364,7 +364,7 @@
                                 	</div>
                                 </div>
                                	<div class="col-sm-12 col-md-6">
-                               		<a href="/board/write" class="btn btn-primary btn-lg" style="float: right;margin-bottom: 8px;">글쓰기 </a>
+                               		<a href="/board/write?cate=notice" class="btn btn-primary btn-lg" style="float: right;margin-bottom: 8px;">글쓰기 </a>
                                	</div>
                             </div>
                             <div class="table-responsive">
