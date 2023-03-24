@@ -14,8 +14,10 @@
     .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
     .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
     .info .close:hover {cursor: pointer;}
+    .info .modify{position: absolute;top: 1px;right: 85px;}
+    .info .delete{position: absolute;top: 1px;right: 35px;}
     .info .body {position: relative;overflow: hidden;}
-    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+    .info .desc {position: relative;margin: 13px 0 0 10px;height: 75px;}
     .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
     .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
     .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
@@ -387,18 +389,24 @@
  -->                    <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h4 class="m-0 font-weight-bold text-primary">자유게시판 </h4>
+                            <h4 class="m-0 font-weight-bold text-primary">지도  </h4>
                         </div>
                         <div class="card-body">
                         	<div class="row">
-                        			<div id="map" style="width:100%;height:550px;"></div>
-                                </div>
-                                </div>
+                        		<div id="map" style="width:100%;height:550px;"></div>
                             </div>
                         </div>
-                    </div>
-
-                </div>
+                        <c:choose>
+                        	<c:when test="${sessionScope.user ne null && sessionScope.user.userId == 'test'}">
+                        		<div class="col-sm-12">
+		                  			 <a href="/board/addMap" class="btn btn-primary btn-lg" style="float: right;margin-bottom: 8px;">지도추가 </a>
+		                		</div>
+		                	</c:when>
+                        </c:choose>
+                     </div>
+                  </div>
+              </div>
+            </div>
                 <!-- /.container-fluid -->
 
             </div>
@@ -454,7 +462,18 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
-    
+    <script type="text/javascript">
+    const msg="${msg}"
+		if(msg=="addSuccess"){
+			alert("지도 추가가 완료되었습니다.");
+		}
+    	if(msg=="modSuccess"){
+			alert("지도 수정이 완료되었습니다.");
+		}
+    	if(msg=="delSuccess"){
+    		alert("지도 삭제가 완료되었습니다.");
+    	}
+    </script>
 	
 
     <!-- Page level plugins -->
@@ -528,25 +547,41 @@
 	    body.classList.add("body");
 	    info.appendChild(body);
 	    
-	    var img = document.createElement('div');
-	    img.classList.add("img");
-	    body.appendChild(img);
-	    
-	    var src = document.createElement('img');
-	    src.setAttribute('src','https://cfile181.uf.daum.net/image/250649365602043421936D');
-	    src.setAttribute('width', 73);
-	    src.setAttribute('height', 70); 
-		img.appendChild(src);
-		
 		var desc = document.createElement('div');
 		desc.classList.add('desc');
 		body.appendChild(desc);
 		
-		var ellipsis = document.createElement('div');
-		ellipsis.classList.add('ellipsis');
-		ellipsis.appendChild(document.createTextNode(mapArr[index].address));  
-		desc.appendChild(ellipsis);
+		var address = document.createElement('div');
+		address.classList.add('ellipsis');
+		address.appendChild(document.createTextNode(mapArr[index].address));  
+		desc.appendChild(address);
 		
+		var tel = document.createElement('div');
+		tel.classList.add('ellipsis');
+		tel.appendChild(document.createTextNode(mapArr[index].tel));  
+		isEmpty(mapArr[index].tel);
+		desc.appendChild(tel);
+		
+		var storeDesc = document.createElement('div');
+		storeDesc.classList.add('ellipsis');
+		storeDesc.appendChild(document.createTextNode(mapArr[index].description));  
+		desc.appendChild(storeDesc);
+		
+		var modBtn = document.createElement('button');
+		modBtn.classList.add('modify', 'btn-sm', 'btn-primary');
+		modBtn.innerHTML="수정 ";
+		modBtn.onclick=function(){
+			location.href="/map/modifyMap?mapNo="+mapArr[index].mapNo;
+		}
+		title.appendChild(modBtn);
+		
+		var delBtn = document.createElement('button');
+		delBtn.classList.add('delete', 'btn-sm', 'btn-primary');
+		delBtn.innerHTML="삭제 ";
+		delBtn.onclick=function(){
+			location.href="/map/deleteMap?mapNo="+mapArr[index].mapNo;
+		}
+		title.appendChild(delBtn);
 		
 	    var closeBtn = document.createElement('button');
 	    closeBtn.classList.add('close');
@@ -557,6 +592,8 @@
 	    };
 	
 	    title.appendChild(closeBtn);
+	    
+			   	
 		    
 		// 아래 코드는 위의 마커를 생성하는 코드에서 clickable: true 와 같이
 		// 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
@@ -609,6 +646,16 @@
 			console.log(marker);  */
 
 	});//end for
+	
+	function isEmpty(value){
+		console.log("호출됨 ");
+		if(value == undefined || value =="undefined"){
+			console.log("if")
+			value="ff";
+			return value;
+		}
+		return value;
+	}
 	
 	// 키워드 검색 완료 시 호출되는 콜백함수 입니다
 	/* function placesSearchCB (data, status, pagination) {

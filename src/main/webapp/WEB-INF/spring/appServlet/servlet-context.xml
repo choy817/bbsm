@@ -39,5 +39,4 @@
 	
 	<!-- NaverLoginController Class에 대한 Bean설정 추가 -->
 	<beans:bean class="com.bbsm.domain.NaverLoginBO"/>
-	
-</beans:beans> 
+	</beans:beans> 

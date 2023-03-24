@@ -75,8 +75,4 @@ public class BoardServiceImpl implements BoardService{
 	public int getReco(long boardNo) {
 		return boardMapper.getReco(boardNo);
 	}
-	@Override
-	public List<MapDTO> getMapList() {
-		return boardMapper.getMapList();
-	}
 }

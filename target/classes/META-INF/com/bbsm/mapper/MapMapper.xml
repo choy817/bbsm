@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 인터페이스가 있는 경로를 적어서 Mapper 인터페이스와 연결한다. -->
+<mapper namespace="com.bbsm.mapper.MapMapper">
+	<!-- 지도 목록 가져오기  -->
+	<select id="getMapList" resultType="com.bbsm.domain.MapDTO">
+		SELECT * FROM bbsm_map
+	</select>
+	<!-- 지도 상세보기  -->
+	<select id="read" resultType="com.bbsm.domain.MapDTO">
+		SELECT * FROM bbsm_map WHERE mapNo = #{mapNo}
+	</select>
+	
+	<!-- 지도 추가하기  -->
+	<insert id="addMap">
+		<selectKey keyProperty="mapNo" resultType="long" order="BEFORE">
+			SELECT map_seq.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO bbsm_map(mapNo,storeName, latitude, longitude, address, tel, description)
+		VALUES(#{mapNo}, #{storeName}, #{latitude},#{longitude}, #{address}, #{tel}, #{description} )
+	</insert>
+	
+	<!-- 지도 수정하기  -->
+	<update id="modifyMap">
+		UPDATE bbsm_map 
+		SET storeName=#{storeName}, latitude=#{latitude}, longitude=#{longitude}, address=#{address}, tel=#{tel}, description=#{description}
+		WHERE mapNo=#{mapNo}
+	</update>
+	
+	<!-- 지도 삭제하기  -->
+	<delete id="deleteMap">
+		DELETE FROM bbsm_map WHERE mapNo=#{mapNo}
+	</delete>
+	
+</mapper>

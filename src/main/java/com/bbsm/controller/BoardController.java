@@ -130,24 +130,6 @@ public class BoardController {
 		return "redirect:/board/notice"+cri.getListLink();
 	}
 	
-	@GetMapping("/map")
-	public void map(Model model) {
-		log.info("Controller ==============> boardMap");
-		List<MapDTO> mapList=new ArrayList<MapDTO>();
-		mapList=boardService.getMapList();
-//		JSONArray array=new JSONArray();
-		String array=new Gson().toJson(mapList);
-//		for (int i = 0; i < mapList.size(); i++) {
-//			JSONObject json=new JSONObject();
-//			json.put("mapList", mapList);
-//		}
-//		log.info("mapList : " +mapList );
-//		array.add(mapList);
-		log.info("array : "+array);
-		model.addAttribute("map", array);
-		
-	}
-	
 	@ResponseBody
 	@RequestMapping(value = "/recoCnt", method = RequestMethod.POST, produces = "application/json")
 	public int recoCnt(@RequestBody long boardNo) {

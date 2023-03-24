@@ -64,11 +64,6 @@
 		SELECT COUNT(*) FROM bbsm_board WHERE boardNo=#{boardNo}
 	</select>
 	
-	<!-- 지도 목록 가져오기  -->
-	<select id="getMapList" resultType="com.bbsm.domain.MapDTO">
-		SELECT * FROM bbsm_map
-	</select>
-	
 	<!-- 게시물 작성  -->
 	<insert id="write">
 		<selectKey keyProperty="boardNo" resultType="long" order="BEFORE">

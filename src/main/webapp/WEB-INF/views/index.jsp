@@ -56,7 +56,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="/board/map">
+                <a class="nav-link" href="/map/list">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>지도 보기 </span></a>
             </li>
