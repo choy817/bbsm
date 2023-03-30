@@ -50,7 +50,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="/index">
+                <a class="nav-link" href="../index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -60,7 +60,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="/board/map">
+                <a class="nav-link" href="/map/list">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>지도 보기 </span></a>
             </li>
